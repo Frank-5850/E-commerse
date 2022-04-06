@@ -99,4 +99,34 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
+
+  isAuth: async (req, res, next) => {
+    try {
+      const token = req.headers.authorization;
+
+      if (!token) {
+        return res.status(401).json({ msg: "No token, authorization denied" });
+      }
+
+      const auth = jwt.verify(token, process.env.JWT_SECRET);
+      if (!auth) {
+        return res.status(401).json({ msg: "Token is not valid" });
+      }
+
+      req.user = auth.id;
+      next();
+    } catch (error) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+  remove: async (req, res) => {
+    try {
+      const removedUser = await User.findByIdAndDelete(req.user);
+      console.log(req.user);
+      res.json(removedUser);
+    } catch (error) {
+      res.status(500).json({ error: err.message });
+    }
+  },
 };
