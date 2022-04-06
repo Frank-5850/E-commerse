@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 module.exports = {
   register: async (req, res) => {
@@ -43,6 +45,49 @@ module.exports = {
       res.json(savedUser);
     } catch (error) {
       res.status(500).json({ error: err.message });
+    }
+  },
+
+  login: async (req, res) => {
+    try {
+      // Deconstructing values from req.body
+      const { email, password } = req.body;
+      // Going through multiple checks before creating a new user
+      if (!email || !password) {
+        return res.status(400).json({ msg: "All fields are required" });
+      }
+      // Getting user from database
+      const existingUser = await User.findOne({ email: email });
+
+      if (!existingUser) {
+        return res.status(400).json({ msg: "Email is not registered" });
+      }
+      // Checking if password is correct
+      const isMatch = await bcrypt.compare(
+        password,
+        existingUser.hashed_password
+      );
+
+      if (!isMatch) {
+        return res.status(400).json({ msg: "Incorrect password" });
+      }
+      // Creating and assigning a token
+      const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
+      // Returning token
+      res.json({
+        token,
+        user: {
+          id: existingUser._id,
+          firstName: existingUser.firstName,
+          lastName: existingUser.lastName,
+          email: existingUser.email,
+          role: existingUser.role,
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
   },
 };
