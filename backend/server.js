@@ -6,6 +6,7 @@ const path = require("path");
 
 // imported routes
 const authRoutes = require("./routes/authRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 // express setup
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use("/api", authRoutes);
+app.use("/api", categoryRoutes);
 
 app.listen(port, () => {
   console.log(`Listening at: http://localhost:${port}`);

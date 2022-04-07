@@ -134,8 +134,7 @@ module.exports = {
 
   isAdmin: async (req, res, next) => {
     try {
-      console.log("isAdmin", req.user);
-      const user = await User.findById(req.user);
+      const user = await User.findById(req.user._id);
       if (user.role === 0) {
         return res.status(401).json({ msg: "You are not authorized" });
       }
