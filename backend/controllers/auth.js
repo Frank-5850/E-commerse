@@ -103,7 +103,6 @@ module.exports = {
   isAuth: async (req, res, next) => {
     try {
       const token = req.headers.authorization;
-
       if (!token) {
         return res.status(401).json({ msg: "No token, authorization denied" });
       }
@@ -112,8 +111,10 @@ module.exports = {
       if (!auth) {
         return res.status(401).json({ msg: "Token is not valid" });
       }
-
-      req.user = auth.id;
+      let user = req.user && auth && req.user._id == auth.id;
+      if (!user) {
+        return res.status(403).json({ msg: "Access denied" });
+      }
       next();
     } catch (error) {
       res.status(500).json({ error: err.message });
@@ -123,17 +124,18 @@ module.exports = {
   remove: async (req, res) => {
     try {
       const removedUser = await User.findByIdAndDelete(req.user);
-      console.log(req.user);
+      console.log(removedUser);
       res.json(removedUser);
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: err.message });
     }
   },
 
   isAdmin: async (req, res, next) => {
     try {
+      console.log("isAdmin", req.user);
       const user = await User.findById(req.user);
-      console.log("isAdmin", user);
       if (user.role === 0) {
         return res.status(401).json({ msg: "You are not authorized" });
       }

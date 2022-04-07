@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { findUserById } = require("../controllers/user");
 const {
   register,
   login,
@@ -13,6 +14,8 @@ const {
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
-router.delete("/delete", isAuth, remove);
+router.delete("/delete/:userId", isAuth, remove);
+
+router.param("userId", findUserById);
 
 module.exports = router;
