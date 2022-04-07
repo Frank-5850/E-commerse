@@ -129,4 +129,17 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
+
+  isAdmin: async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user);
+      console.log("isAdmin", user);
+      if (user.role === 0) {
+        return res.status(401).json({ msg: "You are not authorized" });
+      }
+      next();
+    } catch (error) {
+      res.status(500).json({ error: err.message });
+    }
+  },
 };
