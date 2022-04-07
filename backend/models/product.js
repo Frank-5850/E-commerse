@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { objectId } = mongoose.Schema;
+const { ObjectId } = mongoose.Schema;
 
 const productSchema = new mongoose.Schema(
   {
@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
     photo: {
-      data: Buffer,
+      data: String,
       contentType: String,
     },
     shipping: {
