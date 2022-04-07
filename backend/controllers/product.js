@@ -3,7 +3,8 @@ const Product = require("../models/product");
 module.exports = {
   createProduct: async (req, res) => {
     try {
-      const { name, description, price, category, photo } = req.body;
+      const photo = req.file.filename;
+      const { name, description, price, category } = req.body;
       if (!name || !description || !price || !category || !photo) {
         return res.status(400).json({ msg: "All fields are required" });
       }

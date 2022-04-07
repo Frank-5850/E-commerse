@@ -7,8 +7,8 @@ const router = require("express").Router();
 
 router.post(
   "/product/create/:userId",
-  isAuth,
-  isAdmin,
+  // isAuth,
+  // isAdmin,
   upload.single("photo"),
   createProduct
 );

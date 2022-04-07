@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 8000;
 const path = require("path");
+const cors = require("cors");
 
 // imported routes
 const authRoutes = require("./routes/authRoutes");
@@ -12,6 +13,9 @@ const productRoutes = require("./routes/productRoutes");
 // express setup
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//
+app.use(cors());
 
 // mongoose setup
 mongoose.connect(
