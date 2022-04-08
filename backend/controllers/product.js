@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const path = require("path");
 
 module.exports = {
   createProduct: async (req, res) => {
@@ -13,13 +14,40 @@ module.exports = {
         description,
         price,
         category,
-        photo,
+        photo: {
+          fileName: req.file.originalname,
+          filePath: req.file.path,
+          fileType: req.file.mimetype,
+          fileSize: req.file.size,
+        },
         shipping: true,
       });
+
       const savedProduct = await newProduct.save();
       res.json(savedProduct);
     } catch (error) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: error.message });
+    }
+  },
+  findProductById: async (req, res, next, id) => {
+    try {
+      const product = await Product.findById(id);
+      if (!product) {
+        return res.status(404).json({ msg: "Product not found" });
+      }
+      req.product = product;
+      next();
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  readProduct: async (req, res) => {
+    try {
+      // const photoDirectory = path.join("images");
+      const product = req.product;
+      res.send(product);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   },
 };

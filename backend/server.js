@@ -36,6 +36,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
