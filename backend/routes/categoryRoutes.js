@@ -7,6 +7,7 @@ const {
   readCategory,
   updateCategory,
   deleteCategory,
+  listCategories,
 } = require("../controllers/category");
 const { findUserById } = require("../controllers/user");
 
@@ -24,6 +25,8 @@ router.delete(
   isAdmin,
   deleteCategory
 );
+
+router.get("/categories", listCategories);
 
 router.param("userId", findUserById);
 router.param("categoryId", findCategoryById);
