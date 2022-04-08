@@ -100,6 +100,17 @@ module.exports = {
     }
   },
 
+  deleteUser: async (req, res) => {
+    try {
+      const removedUser = await User.findByIdAndDelete(req.user);
+      console.log(removedUser);
+      res.json(removedUser);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: err.message });
+    }
+  },
+
   isAuth: async (req, res, next) => {
     try {
       const token = req.headers.authorization;
@@ -117,17 +128,6 @@ module.exports = {
       }
       next();
     } catch (error) {
-      res.status(500).json({ error: err.message });
-    }
-  },
-
-  remove: async (req, res) => {
-    try {
-      const removedUser = await User.findByIdAndDelete(req.user);
-      console.log(removedUser);
-      res.json(removedUser);
-    } catch (error) {
-      console.log(error);
       res.status(500).json({ error: err.message });
     }
   },

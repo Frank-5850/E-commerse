@@ -5,7 +5,7 @@ const {
   login,
   logout,
   isAuth,
-  remove,
+  deleteUser,
 } = require("../controllers/auth");
 
 // router.get("/test", (req, res) => {
@@ -14,7 +14,7 @@ const {
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
-router.delete("/delete/:userId", isAuth, remove);
+router.delete("/user/delete/:userId", isAuth, deleteUser);
 
 router.param("userId", findUserById);
 
