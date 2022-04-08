@@ -1,5 +1,7 @@
 const Product = require("../models/product");
-const path = require("path");
+const fs = require("fs");
+const promisify = require("util").promisify;
+const unlinkAsync = promisify(fs.unlink);
 
 module.exports = {
   createProduct: async (req, res) => {
@@ -43,9 +45,18 @@ module.exports = {
   },
   readProduct: async (req, res) => {
     try {
-      // const photoDirectory = path.join("images");
       const product = req.product;
       res.send(product);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  removeProduct: async (req, res) => {
+    try {
+      const product = req.product;
+      await unlinkAsync(req.product.photo.filePath);
+      await product.remove();
+      res.json({ msg: "Product removed" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
