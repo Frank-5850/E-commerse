@@ -38,4 +38,19 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+
+  updateCategory: async (req, res) => {
+    try {
+      const { name } = req.body;
+      if (!name) {
+        return res.status(400).json({ msg: "All fields are required" });
+      }
+      const category = req.category;
+      category.name = name;
+      const savedCategory = await category.save();
+      res.json(savedCategory);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
