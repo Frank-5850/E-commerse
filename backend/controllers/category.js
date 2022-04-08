@@ -1,4 +1,5 @@
 const Category = require("../models/catergory");
+const Product = require("../models/product");
 
 module.exports = {
   findCategoryById: async (req, res, next, id) => {
@@ -49,6 +50,24 @@ module.exports = {
       category.name = name;
       const savedCategory = await category.save();
       res.json(savedCategory);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  deleteCategory: async (req, res) => {
+    try {
+      const category = req.category;
+      const existingProducts = await Product.find({ category });
+      if (existingProducts.length >= 1) {
+        console.log(existingProducts);
+        return res.status(400).json({
+          msg: `Sorry. You cant delete ${category.name}. It has ${existingProducts.length} associated product(s).`,
+        });
+      } else {
+        await category.remove();
+        res.json({ msg: "Category deleted" });
+      }
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
