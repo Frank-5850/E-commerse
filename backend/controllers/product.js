@@ -48,7 +48,7 @@ module.exports = {
   readProduct: async (req, res) => {
     try {
       const product = req.product;
-      res.send(product);
+      res.json(product);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
