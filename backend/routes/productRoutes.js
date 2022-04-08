@@ -5,6 +5,7 @@ const {
   findProductById,
   readProduct,
   removeProduct,
+  updateProduct,
 } = require("../controllers/product");
 const { findUserById } = require("../controllers/user");
 const { upload } = require("../middlewares/photoMiddleware");
@@ -17,6 +18,13 @@ router.post(
   createProduct
 );
 router.delete("/product/:productId/:userId", isAuth, isAdmin, removeProduct);
+router.put(
+  "/product/update/:productId/:userId",
+  isAuth,
+  isAdmin,
+  upload.single("photo"),
+  updateProduct
+);
 
 router.get("/product/:productId", findProductById, readProduct);
 

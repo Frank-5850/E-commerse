@@ -7,8 +7,8 @@ module.exports = {
   createProduct: async (req, res) => {
     try {
       const photo = req.file.filename;
-      const { name, description, price, category } = req.body;
-      if (!name || !description || !price || !category || !photo) {
+      const { name, description, price, category, quantity } = req.body;
+      if (!name || !description || !price || !category || !photo || !quantity) {
         return res.status(400).json({ msg: "All fields are required" });
       }
       const newProduct = new Product({
@@ -22,15 +22,16 @@ module.exports = {
           fileType: req.file.mimetype,
           fileSize: req.file.size,
         },
+        quantity,
         shipping: true,
       });
-
       const savedProduct = await newProduct.save();
       res.json(savedProduct);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
+
   findProductById: async (req, res, next, id) => {
     try {
       const product = await Product.findById(id);
@@ -43,6 +44,7 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+
   readProduct: async (req, res) => {
     try {
       const product = req.product;
@@ -51,12 +53,50 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+
   removeProduct: async (req, res) => {
     try {
       const product = req.product;
       await unlinkAsync(req.product.photo.filePath);
       await product.remove();
       res.json({ msg: "Product removed" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  updateProduct: async (req, res) => {
+    try {
+      const product = req.product;
+      if (req.file) {
+        photo = req.file;
+        await unlinkAsync(req.product.photo.filePath);
+      } else {
+        photo = product.photo;
+        await unlinkAsync(req.product.photo.filePath);
+      }
+      const { name, description, price, category, quantity } = req.body;
+      if (
+        !name ||
+        !description ||
+        !price ||
+        !category ||
+        !photo.filename ||
+        !quantity
+      ) {
+        return res.status(400).json({ msg: "All fields are required" });
+      }
+      product.name = name;
+      product.description = description;
+      product.price = price;
+      product.category = category;
+      product.photo.fileName = photo.originalname;
+      product.photo.filePath = photo.path;
+      product.photo.fileType = photo.mimetype;
+      product.photo.fileSize = photo.size;
+      product.quantity = quantity;
+      await product.save();
+      res.json(product);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
