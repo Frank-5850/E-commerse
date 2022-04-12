@@ -9,12 +9,9 @@ export const authSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
     },
-    isAuthenticated: (state) => {
-      state.value -= 1;
-    },
   },
 });
 
-export const { setCurrentUser, isAuthenticated } = authSlice.actions;
+export const { setCurrentUser } = authSlice.actions;
 
 export default authSlice.reducer;
