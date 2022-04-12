@@ -15,14 +15,19 @@ import {
   CloseButton,
 } from "./signin.styles";
 import { signin, authenticate } from "../../api/authAPI";
+import { useDispatch } from "react-redux";
+import {
+  showSignin,
+  toggleBetweenSigninAndSignup,
+} from "../../redux/slices/formToggleSlice";
 
-const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
+const Signin = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
     error: "",
   });
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { email, password, error } = values;
@@ -57,7 +62,7 @@ const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
           error: false,
           redirectToReferrer: true,
         });
-        await setShowSignin(false);
+        await dispatch(showSignin());
         navigate("/");
       }
     } catch (error) {
@@ -79,9 +84,9 @@ const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
   );
 
   return (
-    <SigninWrapper onClick={() => setShowSignin(false)}>
+    <SigninWrapper onClick={() => dispatch(showSignin())}>
       <SigninContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={() => setShowSignin(false)}>X</CloseButton>
+        <CloseButton onClick={() => dispatch(showSignin())}>X</CloseButton>
         <Header>
           <HeaderText>Please Sign in</HeaderText>
         </Header>
@@ -104,7 +109,9 @@ const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
           {showError()}
           <SignupComponent>
             <SignupText>Not a member?</SignupText>
-            <SignupClick onClick={() => toggleBetweenSigninAndSignup()}>
+            <SignupClick
+              onClick={() => dispatch(toggleBetweenSigninAndSignup())}
+            >
               Join Us
             </SignupClick>
           </SignupComponent>

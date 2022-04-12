@@ -2,8 +2,11 @@ import React from "react";
 import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
 import { isAuthenticated, signout } from "./../api/authAPI";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showSignin } from "../redux/slices/formToggleSlice";
 
-const Nav = ({ setShowSignin }) => {
+const Nav = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <NavWrapper>
@@ -12,7 +15,7 @@ const Nav = ({ setShowSignin }) => {
       </NavGroup>
       <NavGroup>
         {!isAuthenticated() && (
-          <NavButton onClick={() => setShowSignin(true)}>Sign In</NavButton>
+          <NavButton onClick={() => dispatch(showSignin())}>Sign In</NavButton>
         )}
         {isAuthenticated() && (
           <NavButton onClick={() => signout(() => navigate("/"))}>
