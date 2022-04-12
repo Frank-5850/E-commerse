@@ -20,6 +20,7 @@ import {
   showSignin,
   toggleBetweenSigninAndSignup,
 } from "../../redux/slices/formToggleSlice";
+import { setCurrentUser } from "../../redux/slices/authSlice";
 
 const Signin = () => {
   const [values, setValues] = useState({
@@ -56,7 +57,9 @@ const Signin = () => {
           loading: false,
         });
       } else {
+        console.log(data);
         await authenticate(data);
+        await dispatch(setCurrentUser(data));
         await setValues({
           ...values,
           error: false,
