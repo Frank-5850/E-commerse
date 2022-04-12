@@ -44,7 +44,6 @@ const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
         loading: true,
       });
       const data = await signin({ email, password });
-      console.log(data);
       if (data.msg) {
         setValues({
           ...values,

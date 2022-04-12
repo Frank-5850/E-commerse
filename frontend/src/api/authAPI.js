@@ -30,3 +30,27 @@ export const authenticate = async (data) => {
     console.log(error);
   }
 };
+
+export const signout = async (next) => {
+  try {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("jwt");
+    }
+    const response = await axios.get("http://localhost:8000/api/logout");
+    next();
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const isAuthenticated = () => {
+  if (typeof window == "undefined") {
+    return false;
+  }
+  if (localStorage.getItem("jwt")) {
+    return JSON.parse(localStorage.getItem("jwt"));
+  } else {
+    return false;
+  }
+};

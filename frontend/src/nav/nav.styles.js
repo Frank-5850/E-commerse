@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 
 export const NavWrapper = styled.div`
   background: grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const NavGroup = styled.ul`
   display: flex;
   align-items: center;
   padding: 1rem;
-  margin: 0 auto;
-  min-width: 960px;
+  margin: 0;
+  // min-width: 960px;
 `;
 
 export const NavItem = styled(Link)`
