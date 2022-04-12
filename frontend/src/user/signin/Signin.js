@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   SigninContainer,
   SigninWrapper,
@@ -13,8 +14,71 @@ import {
   SignupClick,
   CloseButton,
 } from "./signin.styles";
+import { signin, authenticate } from "../../api/authAPI";
 
 const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    error: "",
+  });
+
+  const navigate = useNavigate();
+
+  const { email, password, error } = values;
+
+  const handleChange = (name) => (event) => {
+    setValues({
+      ...values,
+      error: false,
+      [name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await setValues({
+        ...values,
+        error: false,
+        loading: true,
+      });
+      const data = await signin({ email, password });
+      console.log(data);
+      if (data.msg) {
+        setValues({
+          ...values,
+          error: data.msg,
+          loading: false,
+        });
+      } else {
+        await authenticate(data);
+        await setValues({
+          ...values,
+          error: false,
+          redirectToReferrer: true,
+        });
+        await setShowSignin(false);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const showError = () => (
+    <div
+      style={{
+        display: error ? "" : "none",
+        color: "red",
+        fontSize: "0.8rem",
+        marginBottom: "0.5rem",
+      }}
+    >
+      {error}
+    </div>
+  );
+
   return (
     <SigninWrapper onClick={() => setShowSignin(false)}>
       <SigninContainer onClick={(e) => e.stopPropagation()}>
@@ -22,10 +86,23 @@ const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
         <Header>
           <HeaderText>Please Sign in</HeaderText>
         </Header>
-        <SignInForm>
-          <EmailInput placeholder="Email address" />
-          <PasswordInput type="password" placeholder="password" />
-          <SigninButton>Sign In</SigninButton>
+        <SignInForm onSubmit={handleSubmit}>
+          <EmailInput
+            placeholder="Email address"
+            onChange={handleChange("email")}
+            type="email"
+            className="form-control"
+            value={email}
+          />
+          <PasswordInput
+            onChange={handleChange("password")}
+            type="password"
+            className="form-control"
+            value={password}
+            placeholder="password"
+          />
+          <SigninButton onClick={(e) => handleSubmit(e)}>Sign In</SigninButton>
+          {showError()}
           <SignupComponent>
             <SignupText>Not a member?</SignupText>
             <SignupClick onClick={() => toggleBetweenSigninAndSignup()}>
