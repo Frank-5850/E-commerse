@@ -19,8 +19,13 @@ import {
   LastNameInput,
   VerifyPasswordInput,
 } from "./signup.styles";
+import { useDispatch } from "react-redux";
+import {
+  showSignup,
+  toggleBetweenSigninAndSignup,
+} from "../../redux/slices/formToggleSlice";
 
-const Signup = ({ setShowSignup, toggleBetweenSigninAndSignup }) => {
+const Signup = () => {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -40,6 +45,8 @@ const Signup = ({ setShowSignup, toggleBetweenSigninAndSignup }) => {
     success,
     error,
   } = values;
+
+  const dispatch = useDispatch();
 
   const handleChange = (name) => (event) => {
     setValues({
@@ -106,9 +113,9 @@ const Signup = ({ setShowSignup, toggleBetweenSigninAndSignup }) => {
   );
 
   return (
-    <SigninWrapper onClick={() => setShowSignup(false)}>
+    <SigninWrapper onClick={() => dispatch(showSignup())}>
       <SigninContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={() => setShowSignup(false)}>X</CloseButton>
+        <CloseButton onClick={() => dispatch(showSignup())}>X</CloseButton>
         <Header>
           <HeaderText>Please Sign Up</HeaderText>
         </Header>
@@ -153,8 +160,10 @@ const Signup = ({ setShowSignup, toggleBetweenSigninAndSignup }) => {
           {showError()}
           <SignupComponent>
             <SignupText>Already a member?</SignupText>
-            <SignupClick onClick={() => toggleBetweenSigninAndSignup()}>
-              Join Us
+            <SignupClick
+              onClick={() => dispatch(toggleBetweenSigninAndSignup())}
+            >
+              Sign In
             </SignupClick>
           </SignupComponent>
         </SignInForm>
