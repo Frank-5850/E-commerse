@@ -6,7 +6,7 @@ const unlinkAsync = promisify(fs.unlink);
 module.exports = {
   findProductById: async (req, res, next, id) => {
     try {
-      const product = await Product.findById(id);
+      const product = await Product.findById(id).populate("category");
       if (!product) {
         return res.status(404).json({ msg: "Product not found" });
       }
