@@ -7,7 +7,9 @@ module.exports = {
   register: async (req, res) => {
     try {
       // Deconstructing values from req.body
-      const { firstName, lastName, email, password, passwordCheck } = req.body;
+      // console.log("hello", req);
+      const { firstName, lastName, email, password, passwordCheck } =
+        req.body.user;
       // Going through multiple checks before creating a new user
       if (!firstName || !lastName || !email || !password || !passwordCheck) {
         return res.status(400).json({ msg: "All fields are required" });
