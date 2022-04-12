@@ -5,6 +5,12 @@ import Nav from "./nav/Nav";
 
 const App = () => {
   const [showSignin, setShowSignin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+
+  const toggleBetweenSigninAndSignup = () => {
+    setShowSignin(!showSignin);
+    setShowSignup(!showSignup);
+  };
 
   return (
     <BrowserRouter>
@@ -13,7 +19,13 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Home showSignin={showSignin} setShowSignin={setShowSignin} />
+            <Home
+              showSignin={showSignin}
+              setShowSignin={setShowSignin}
+              showSignup={showSignup}
+              setShowSignup={setShowSignup}
+              toggleBetweenSigninAndSignup={toggleBetweenSigninAndSignup}
+            />
           }
         />
       </Routes>

@@ -14,7 +14,7 @@ import {
   CloseButton,
 } from "./signin.styles";
 
-const Signin = ({ setShowSignin }) => {
+const Signin = ({ setShowSignin, toggleBetweenSigninAndSignup }) => {
   return (
     <SigninWrapper onClick={() => setShowSignin(false)}>
       <SigninContainer onClick={(e) => e.stopPropagation()}>
@@ -28,7 +28,9 @@ const Signin = ({ setShowSignin }) => {
           <SigninButton>Sign In</SigninButton>
           <SignupComponent>
             <SignupText>Not a member?</SignupText>
-            <SignupClick>Join Us</SignupClick>
+            <SignupClick onClick={() => toggleBetweenSigninAndSignup()}>
+              Join Us
+            </SignupClick>
           </SignupComponent>
         </SignInForm>
       </SigninContainer>
