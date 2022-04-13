@@ -11,9 +11,14 @@ import {
   DashboardName,
   DashboardText,
 } from "./dashboard.styles";
+import { useSelector, useDispatch } from "react-redux";
+import AddCategory from "../addCategory/AddCategory";
+import { showCategoryForm } from "../../redux/slices/formToggleSlice";
 
 const AdminDashboard = () => {
   const { user } = isAuthenticated();
+  const categoryForm = useSelector((state) => state.formToggleSlice.category);
+  const dispatch = useDispatch();
 
   const memberSince = () => {
     const date = new Date(user.createdAt).toLocaleString("default", {
@@ -25,11 +30,14 @@ const AdminDashboard = () => {
 
   return (
     <DashboardWrapper>
+      {categoryForm && <AddCategory />}
       <DashboardContainer>
         <DashboardLinks>
           <DashboardCard>
             <DashboardLinkGroup>
-              <DashboardLinkItems>Create Category</DashboardLinkItems>
+              <DashboardLinkItems onClick={() => dispatch(showCategoryForm())}>
+                Create Category
+              </DashboardLinkItems>
               <DashboardLinkItems>Create Product</DashboardLinkItems>
               <DashboardLinkItems>Update Profile</DashboardLinkItems>
               <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SigninWrapper = styled.div`
+export const FormWrapper = styled.div`
   z-index: 10;
   display: flex;
   flex-flow: wrap column;
@@ -15,7 +15,7 @@ export const SigninWrapper = styled.div`
   background-cover: fill;
 `;
 
-export const SigninContainer = styled.div`
+export const FormContainer = styled.div`
   background: white;
   z-index: 1;
   position: absolute;
@@ -39,7 +39,7 @@ export const HeaderText = styled.h1`
   margin: 0;
 `;
 
-export const SignInForm = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -47,7 +47,7 @@ export const SignInForm = styled.form`
   padding: 10px;
 `;
 
-export const EmailInput = styled.input`
+export const Input = styled.input`
   width: 100%;
   height: 20px;
   border-radius: 5px;
@@ -56,16 +56,7 @@ export const EmailInput = styled.input`
   margin-bottom: 10px;
 `;
 
-export const PasswordInput = styled.input`
-  width: 100%;
-  height: 20px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 5px;
-  margin-bottom: 10px;
-`;
-
-export const SigninButton = styled.div`
+export const ConfirmButton = styled.div`
   width: 100%;
   height: 20px;
   border-radius: 5px;

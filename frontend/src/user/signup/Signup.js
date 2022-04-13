@@ -1,24 +1,18 @@
 import React, { useState } from "react";
 import { signup } from "../../api/authAPI";
 import {
-  SigninContainer,
-  SigninWrapper,
+  FormContainer,
+  FormWrapper,
   Header,
   HeaderText,
-  SignInForm,
-  EmailInput,
-  PasswordInput,
-  SigninButton,
+  Form,
+  Input,
+  ConfirmButton,
   SignupComponent,
   SignupText,
   SignupClick,
   CloseButton,
-} from "./../signin/signin.styles";
-import {
-  FirstNameInput,
-  LastNameInput,
-  VerifyPasswordInput,
-} from "./signup.styles";
+} from "../signin/forms.styles";
 import { useDispatch } from "react-redux";
 import {
   showSignup,
@@ -113,49 +107,51 @@ const Signup = () => {
   );
 
   return (
-    <SigninWrapper onClick={() => dispatch(showSignup())}>
-      <SigninContainer onClick={(e) => e.stopPropagation()}>
+    <FormWrapper onClick={() => dispatch(showSignup())}>
+      <FormContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={() => dispatch(showSignup())}>X</CloseButton>
         <Header>
           <HeaderText>Please Sign Up</HeaderText>
         </Header>
-        <SignInForm onSubmit={handleSubmit}>
-          <EmailInput
+        <Form onSubmit={handleSubmit}>
+          <Input
             placeholder="Email address"
             onChange={handleChange("email")}
             type="email"
             className="form-control"
             value={email}
           />
-          <FirstNameInput
+          <Input
             placeholder="First Name"
             onChange={handleChange("firstName")}
             type="text"
             className="form-control"
             value={firstName}
           />
-          <LastNameInput
+          <Input
             placeholder="Last Name"
             onChange={handleChange("lastName")}
             type="text"
             className="form-control"
             value={lastName}
           />
-          <PasswordInput
+          <Input
             onChange={handleChange("password")}
             type="password"
             className="form-control"
             value={password}
             placeholder="password"
           />
-          <VerifyPasswordInput
+          <Input
             onChange={handleChange("passwordCheck")}
             type="password"
             className="form-control"
             value={passwordCheck}
             placeholder="Verify password"
           />
-          <SigninButton onClick={(e) => handleSubmit(e)}>Sign Up</SigninButton>
+          <ConfirmButton onClick={(e) => handleSubmit(e)}>
+            Sign Up
+          </ConfirmButton>
           {showSuccess()}
           {showError()}
           <SignupComponent>
@@ -166,9 +162,9 @@ const Signup = () => {
               Sign In
             </SignupClick>
           </SignupComponent>
-        </SignInForm>
-      </SigninContainer>
-    </SigninWrapper>
+        </Form>
+      </FormContainer>
+    </FormWrapper>
   );
 };
 

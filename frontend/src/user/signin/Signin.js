@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  SigninContainer,
-  SigninWrapper,
+  FormContainer,
+  FormWrapper,
   Header,
   HeaderText,
-  SignInForm,
-  EmailInput,
-  PasswordInput,
-  SigninButton,
+  Form,
+  Input,
+  ConfirmButton,
   SignupComponent,
   SignupText,
   SignupClick,
   CloseButton,
-} from "./signin.styles";
+} from "./forms.styles";
 import { signin, authenticate } from "../../api/authAPI";
 import { useDispatch } from "react-redux";
 import {
@@ -87,28 +86,30 @@ const Signin = () => {
   );
 
   return (
-    <SigninWrapper onClick={() => dispatch(showSignin())}>
-      <SigninContainer onClick={(e) => e.stopPropagation()}>
+    <FormWrapper onClick={() => dispatch(showSignin())}>
+      <FormContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={() => dispatch(showSignin())}>X</CloseButton>
         <Header>
           <HeaderText>Please Sign in</HeaderText>
         </Header>
-        <SignInForm onSubmit={handleSubmit}>
-          <EmailInput
+        <Form onSubmit={handleSubmit}>
+          <Input
             placeholder="Email address"
             onChange={handleChange("email")}
             type="email"
             className="form-control"
             value={email}
           />
-          <PasswordInput
+          <Input
             onChange={handleChange("password")}
             type="password"
             className="form-control"
             value={password}
             placeholder="password"
           />
-          <SigninButton onClick={(e) => handleSubmit(e)}>Sign In</SigninButton>
+          <ConfirmButton onClick={(e) => handleSubmit(e)}>
+            Sign In
+          </ConfirmButton>
           {showError()}
           <SignupComponent>
             <SignupText>Not a member?</SignupText>
@@ -118,9 +119,9 @@ const Signin = () => {
               Join Us
             </SignupClick>
           </SignupComponent>
-        </SignInForm>
-      </SigninContainer>
-    </SigninWrapper>
+        </Form>
+      </FormContainer>
+    </FormWrapper>
   );
 };
 
