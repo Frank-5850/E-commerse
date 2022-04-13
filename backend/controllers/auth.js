@@ -7,7 +7,6 @@ module.exports = {
   register: async (req, res) => {
     try {
       // Deconstructing values from req.body
-      // console.log("hello", req);
       const { firstName, lastName, email, password, passwordCheck } = req.body;
       // Going through multiple checks before creating a new user
       if (!firstName || !lastName || !email || !password || !passwordCheck) {
