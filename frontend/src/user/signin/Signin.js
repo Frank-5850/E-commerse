@@ -46,7 +46,6 @@ const Signin = () => {
       await setValues({
         ...values,
         error: false,
-        loading: true,
       });
       const data = await signin({ email, password });
       if (data.msg) {
