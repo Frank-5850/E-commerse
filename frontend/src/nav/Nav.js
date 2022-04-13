@@ -14,9 +14,22 @@ const Nav = () => {
         <NavItem to="/">Home</NavItem>
       </NavGroup>
       <NavGroup>
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <NavItem to="/admin/dashboard">
+            {isAuthenticated().user.firstName}
+          </NavItem>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <NavItem to="/user/dashboard">
+            {isAuthenticated().user.firstName}
+          </NavItem>
+        )}
+
         {!isAuthenticated() && (
           <NavButton onClick={() => dispatch(showSignin())}>Sign In</NavButton>
         )}
+
         {isAuthenticated() && (
           <NavButton onClick={() => signout(() => navigate("/"))}>
             Log Out

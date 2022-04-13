@@ -7,6 +7,7 @@ const Home = () => {
   const { signin, signup } = useSelector((state) => state.formToggleSlice);
   return (
     <div>
+      Home
       {signin && <Signin />}
       {signup && <Signup />}
     </div>

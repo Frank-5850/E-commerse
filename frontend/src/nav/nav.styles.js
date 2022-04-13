@@ -21,6 +21,7 @@ export const NavItem = styled(Link)`
   margin: 0 1rem;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
+  text-decoration: none;
   background: ${(props) => (props.active ? "black" : "white")};
   color: ${(props) => (props.active ? "white" : "black")};
   cursor: pointer;
@@ -28,7 +29,6 @@ export const NavItem = styled(Link)`
     background: black;
     color: white;
   }
-  text-decoration: none;
 `;
 
 export const NavButton = styled.button`
