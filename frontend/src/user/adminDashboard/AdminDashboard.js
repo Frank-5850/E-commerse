@@ -14,10 +14,12 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import AddCategory from "../addCategory/AddCategory";
 import { showCategoryForm } from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
 
 const AdminDashboard = () => {
   const { user } = isAuthenticated();
   const categoryForm = useSelector((state) => state.formToggleSlice.category);
+  const { success, msg } = useSelector((state) => state.successSlice);
   const dispatch = useDispatch();
 
   const memberSince = () => {
@@ -28,9 +30,23 @@ const AdminDashboard = () => {
     return date;
   };
 
+  const showSuccess = () => (
+    <div
+      style={{
+        display: success ? "" : "none",
+        color: "green",
+        fontSize: "1rem",
+        margin: "0.5rem",
+      }}
+    >
+      {msg}
+    </div>
+  );
+
   return (
-    <DashboardWrapper>
+    <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
       {categoryForm && <AddCategory />}
+      {showSuccess()}
       <DashboardContainer>
         <DashboardLinks>
           <DashboardCard>

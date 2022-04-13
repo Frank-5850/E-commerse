@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { showCategoryForm } from "../../redux/slices/formToggleSlice";
 import { addCategory } from "../../api/adminAPI";
 import { isAuthenticated } from "./../../api/authAPI";
+import { setSuccess } from "../../redux/slices/successSlice";
 
 const AddCategory = () => {
   const [values, setValues] = useState({
@@ -52,13 +53,19 @@ const AddCategory = () => {
         error: false,
       });
       const data = await addCategory({ category }, user.id, token);
-      if (data.error) {
+      if (data.msg) {
         setValues({
           ...values,
-          error: data.error,
+          error: data.msg,
         });
       } else {
-        dispatch(showCategoryForm());
+        await dispatch(
+          setSuccess({
+            success: true,
+            msg: "Category added successfully",
+          })
+        );
+        await dispatch(showCategoryForm(false));
       }
     } catch (error) {
       console.log("error", error);

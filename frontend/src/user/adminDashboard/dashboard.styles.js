@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
   display: flex;
-  flex-flow: row;
-  justify-content: center;
+  flex-flow: column;
+  align-items: center;
   min-height: 95vh;
   background-color: white;
   background-cover: fill;
