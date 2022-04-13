@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   FormContainer,
   FormWrapper,
@@ -10,8 +9,10 @@ import {
   ConfirmButton,
   CloseButton,
 } from "../signin/forms.styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { showCategoryForm } from "../../redux/slices/formToggleSlice";
+import { addCategory } from "../../api/adminAPI";
+import { isAuthenticated } from "./../../api/authAPI";
 
 const AddCategory = () => {
   const [values, setValues] = useState({
@@ -19,6 +20,7 @@ const AddCategory = () => {
     error: "",
   });
   const { category, error } = values;
+  const { token, user } = isAuthenticated();
   const dispatch = useDispatch();
 
   const showError = () => (
@@ -44,6 +46,23 @@ const AddCategory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await setValues({
+        ...values,
+        error: false,
+      });
+      const data = await addCategory({ category }, user.id, token);
+      if (data.error) {
+        setValues({
+          ...values,
+          error: data.error,
+        });
+      } else {
+        dispatch(showCategoryForm());
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -62,9 +81,7 @@ const AddCategory = () => {
             type="text"
             value={category}
           />
-          <ConfirmButton onClick={(e) => console.log("clicked")}>
-            Add
-          </ConfirmButton>
+          <ConfirmButton onClick={(e) => handleSubmit(e)}>Add</ConfirmButton>
           {showError()}
         </Form>
       </FormContainer>

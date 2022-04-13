@@ -17,17 +17,17 @@ module.exports = {
 
   createCategory: async (req, res) => {
     try {
-      const { name } = req.body;
-      if (!name) {
+      const { category } = req.body;
+      if (!category) {
         return res.status(400).json({ msg: "All fields are required" });
       }
       const newCategory = new Category({
-        name,
+        name: category,
       });
       const savedCategory = await newCategory.save();
       res.json(savedCategory);
     } catch (error) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: error.message });
     }
   },
 
