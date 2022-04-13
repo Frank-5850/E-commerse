@@ -6,7 +6,7 @@ export const NavWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-height: 5vh;
+  min-height: 5vh;
 `;
 
 export const NavGroup = styled.ul`
