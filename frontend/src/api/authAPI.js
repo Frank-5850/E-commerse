@@ -1,10 +1,15 @@
 import axios from "axios";
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
 
 export const signup = async (user) => {
   try {
     const response = await axios.post(
       "http://localhost:8000/api/register",
-      user
+      user,
+      { headers: { headers } }
     );
     return response.data;
   } catch (error) {
@@ -14,7 +19,9 @@ export const signup = async (user) => {
 
 export const signin = async (user) => {
   try {
-    const response = await axios.post("http://localhost:8000/api/login", user);
+    const response = await axios.post("http://localhost:8000/api/login", user, {
+      headers: { headers },
+    });
     return response.data;
   } catch (error) {
     return error.response.data;
