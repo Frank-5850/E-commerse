@@ -85,6 +85,8 @@ module.exports = {
           lastName: existingUser.lastName,
           email: existingUser.email,
           role: existingUser.role,
+          createdAt: existingUser.createdAt,
+          history: existingUser.history,
         },
       });
     } catch (error) {
