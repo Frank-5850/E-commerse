@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { showProductForm } from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
+import { getCategories } from "../../api/adminAPI";
+import { isAuthenticated } from "../../api/authAPI";
+import { createProduct } from "../../api/adminAPI";
 import {
   FormContainer,
   FormWrapper,
@@ -10,14 +16,8 @@ import {
   CloseButton,
   SelectInput,
 } from "../signin/forms.styles";
-import { useDispatch } from "react-redux";
-import { showProductForm } from "../../redux/slices/formToggleSlice";
-import { getCategories } from "../../api/adminAPI";
-import { isAuthenticated } from "./../../api/authAPI";
-import { createProduct } from "./../../api/adminAPI";
-import { setSuccess } from "../../redux/slices/successSlice";
 
-const AddProduct = () => {
+const CreateProduct = () => {
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -31,6 +31,8 @@ const AddProduct = () => {
   });
   const { name, description, price, categories, quantity, error, formData } =
     values;
+
+  const dispatch = useDispatch();
 
   const { token, user } = isAuthenticated();
 
@@ -50,8 +52,6 @@ const AddProduct = () => {
   useEffect(() => {
     initialize();
   }, []);
-
-  const dispatch = useDispatch();
 
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
@@ -158,4 +158,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default CreateProduct;

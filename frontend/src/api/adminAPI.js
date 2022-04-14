@@ -4,7 +4,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export const addCategory = async (category, id, token) => {
+export const createCategory = async (category, id, token) => {
   try {
     const response = await axios.post(
       `http://localhost:8000/api/category/create/${id}`,

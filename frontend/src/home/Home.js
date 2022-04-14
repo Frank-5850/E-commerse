@@ -1,7 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Signin from "../user/signin/Signin";
 import Signup from "../user/signup/Signup";
-import { useSelector } from "react-redux";
 
 const Home = () => {
   const { signin, signup } = useSelector((state) => state.formToggleSlice);

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  showSignin,
+  toggleBetweenSigninAndSignup,
+} from "../../redux/slices/formToggleSlice";
+import { setCurrentUser } from "../../redux/slices/authSlice";
+import { signin, authenticate } from "../../api/authAPI";
 import {
   FormContainer,
   FormWrapper,
@@ -13,13 +20,6 @@ import {
   SignupClick,
   CloseButton,
 } from "./forms.styles";
-import { signin, authenticate } from "../../api/authAPI";
-import { useDispatch } from "react-redux";
-import {
-  showSignin,
-  toggleBetweenSigninAndSignup,
-} from "../../redux/slices/formToggleSlice";
-import { setCurrentUser } from "../../redux/slices/authSlice";
 
 const Signin = () => {
   const [values, setValues] = useState({
@@ -27,10 +27,9 @@ const Signin = () => {
     password: "",
     error: "",
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { email, password, error } = values;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (name) => (event) => {
     setValues({
@@ -55,7 +54,6 @@ const Signin = () => {
           loading: false,
         });
       } else {
-        console.log(data);
         await authenticate(data);
         await dispatch(setCurrentUser(data));
         await setValues({

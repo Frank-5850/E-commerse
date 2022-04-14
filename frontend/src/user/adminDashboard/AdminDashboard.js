@@ -1,5 +1,13 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  showCategoryForm,
+  showProductForm,
+} from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
 import { isAuthenticated } from "../../api/authAPI";
+import CreateCategory from "../createCategory/CreateCategory";
+import CreateProduct from "../CreateProduct/CreateProduct";
 import {
   DashboardContainer,
   DashboardInfo,
@@ -11,20 +19,13 @@ import {
   DashboardName,
   DashboardText,
 } from "./dashboard.styles";
-import { useSelector, useDispatch } from "react-redux";
-import AddCategory from "../addCategory/AddCategory";
-import AddProduct from "../addProduct/AddProduct";
-import {
-  showCategoryForm,
-  showProductForm,
-} from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 
 const AdminDashboard = () => {
-  const { user } = isAuthenticated();
   const { category, product } = useSelector((state) => state.formToggleSlice);
   const { success, msg } = useSelector((state) => state.successSlice);
   const dispatch = useDispatch();
+
+  const { user } = isAuthenticated();
 
   const memberSince = () => {
     const date = new Date(user.createdAt).toLocaleString("default", {
@@ -49,8 +50,8 @@ const AdminDashboard = () => {
 
   return (
     <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
-      {category && <AddCategory />}
-      {product && <AddProduct />}
+      {category && <CreateCategory />}
+      {product && <CreateProduct />}
       {showSuccess()}
       <DashboardContainer>
         <DashboardLinks>

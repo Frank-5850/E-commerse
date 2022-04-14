@@ -1,13 +1,13 @@
 import React from "react";
-import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
-import { isAuthenticated, signout } from "./../api/authAPI";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { showSignin } from "../redux/slices/formToggleSlice";
+import { isAuthenticated, signout } from "./../api/authAPI";
+import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
 
 const Nav = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <NavWrapper>
       <NavGroup>

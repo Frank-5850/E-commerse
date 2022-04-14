@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  showSignup,
+  toggleBetweenSigninAndSignup,
+} from "../../redux/slices/formToggleSlice";
 import { signup } from "../../api/authAPI";
 import {
   FormContainer,
@@ -13,11 +18,6 @@ import {
   SignupClick,
   CloseButton,
 } from "../signin/forms.styles";
-import { useDispatch } from "react-redux";
-import {
-  showSignup,
-  toggleBetweenSigninAndSignup,
-} from "../../redux/slices/formToggleSlice";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -61,7 +61,6 @@ const Signup = () => {
         password,
         passwordCheck,
       });
-      console.log("data=>>", data);
       if (data.msg) {
         setValues({
           ...values,

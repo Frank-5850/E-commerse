@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showCategoryForm } from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
+import { createCategory } from "../../api/adminAPI";
+import { isAuthenticated } from "../../api/authAPI";
 import {
   FormContainer,
   FormWrapper,
@@ -9,20 +14,17 @@ import {
   ConfirmButton,
   CloseButton,
 } from "../signin/forms.styles";
-import { useDispatch } from "react-redux";
-import { showCategoryForm } from "../../redux/slices/formToggleSlice";
-import { addCategory } from "../../api/adminAPI";
-import { isAuthenticated } from "./../../api/authAPI";
-import { setSuccess } from "../../redux/slices/successSlice";
 
-const AddCategory = () => {
+const CreateCategory = () => {
   const [values, setValues] = useState({
     category: "",
     error: "",
   });
   const { category, error } = values;
-  const { token, user } = isAuthenticated();
+
   const dispatch = useDispatch();
+
+  const { token, user } = isAuthenticated();
 
   const showError = () => (
     <div
@@ -52,7 +54,7 @@ const AddCategory = () => {
         ...values,
         error: false,
       });
-      const data = await addCategory({ category }, user.id, token);
+      const data = await createCategory({ category }, user.id, token);
       if (data.msg) {
         setValues({
           ...values,
@@ -96,4 +98,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default CreateCategory;
