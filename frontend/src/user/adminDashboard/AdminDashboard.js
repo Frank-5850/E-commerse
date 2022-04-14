@@ -13,12 +13,16 @@ import {
 } from "./dashboard.styles";
 import { useSelector, useDispatch } from "react-redux";
 import AddCategory from "../addCategory/AddCategory";
-import { showCategoryForm } from "../../redux/slices/formToggleSlice";
+import AddProduct from "../addProduct/AddProduct";
+import {
+  showCategoryForm,
+  showProductForm,
+} from "../../redux/slices/formToggleSlice";
 import { setSuccess } from "../../redux/slices/successSlice";
 
 const AdminDashboard = () => {
   const { user } = isAuthenticated();
-  const categoryForm = useSelector((state) => state.formToggleSlice.category);
+  const { category, product } = useSelector((state) => state.formToggleSlice);
   const { success, msg } = useSelector((state) => state.successSlice);
   const dispatch = useDispatch();
 
@@ -45,7 +49,8 @@ const AdminDashboard = () => {
 
   return (
     <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
-      {categoryForm && <AddCategory />}
+      {category && <AddCategory />}
+      {product && <AddProduct />}
       {showSuccess()}
       <DashboardContainer>
         <DashboardLinks>
@@ -54,7 +59,9 @@ const AdminDashboard = () => {
               <DashboardLinkItems onClick={() => dispatch(showCategoryForm())}>
                 Create Category
               </DashboardLinkItems>
-              <DashboardLinkItems>Create Product</DashboardLinkItems>
+              <DashboardLinkItems onClick={() => dispatch(showProductForm())}>
+                Create Product
+              </DashboardLinkItems>
               <DashboardLinkItems>Update Profile</DashboardLinkItems>
               <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
               <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>

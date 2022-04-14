@@ -4,6 +4,7 @@ const initialState = {
   signin: false,
   signup: false,
   category: false,
+  product: false,
 };
 
 export const formToggleSlice = createSlice({
@@ -23,6 +24,9 @@ export const formToggleSlice = createSlice({
     showCategoryForm: (state) => {
       state.category = !state.category;
     },
+    showProductForm: (state) => {
+      state.product = !state.product;
+    },
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   showSignin,
   showSignup,
   showCategoryForm,
+  showProductForm,
 } = formToggleSlice.actions;
 
 export default formToggleSlice.reducer;

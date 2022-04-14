@@ -19,7 +19,11 @@ module.exports = {
 
   createProduct: async (req, res) => {
     try {
+      if (!req.file) {
+        return res.status(400).json({ msg: "All fields are required" });
+      }
       const photo = req.file.filename;
+
       const { name, description, price, category, quantity } = req.body;
       if (!name || !description || !price || !category || !photo || !quantity) {
         return res.status(400).json({ msg: "All fields are required" });

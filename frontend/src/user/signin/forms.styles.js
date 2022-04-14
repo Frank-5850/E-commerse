@@ -56,6 +56,15 @@ export const Input = styled.input`
   margin-bottom: 10px;
 `;
 
+export const SelectInput = styled.select`
+  width: 104.5%;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 10px;
+`;
+
 export const ConfirmButton = styled.div`
   width: 100%;
   height: 20px;
