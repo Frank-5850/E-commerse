@@ -6,6 +6,7 @@ const {
   readProduct,
   deleteProduct,
   updateProduct,
+  getAllProducts,
 } = require("../controllers/product");
 const { findUserById } = require("../controllers/user");
 const { upload } = require("../middlewares/photoMiddleware");
@@ -26,6 +27,8 @@ router.put(
   updateProduct
 );
 router.delete("/product/:productId/:userId", isAuth, isAdmin, deleteProduct);
+
+router.get("/products", getAllProducts);
 
 router.param("userId", findUserById);
 router.param("productId", findProductById);
