@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Signin from "../user/signin/Signin";
 import Signup from "../user/signup/Signup";
-import { getProducts } from "./../api/userAPI";
+import { getProductDetail, getProducts } from "./../api/userAPI";
 import { getCategories } from "./../api/adminAPI";
 import {
   ProductCard,
@@ -20,12 +20,24 @@ import {
   CategoryLinksItems,
   CategoryLinksHeader,
 } from "./home.styles";
+import {
+  ProductDetailWrapper,
+  ProductDetailContainer,
+  ProductDetailImg,
+  ProductDetailGroup,
+} from "./productDetailCard.styles";
+import { CloseButton } from "../user/signin/forms.styles";
 
 const Home = () => {
   const [data, setData] = useState({
     products: [],
     categories: [],
   });
+  const [productDetails, setProductDetails] = useState({
+    show: false,
+    product: {},
+  });
+
   const { signin, signup } = useSelector((state) => state.formToggleSlice);
 
   const initialize = async () => {
@@ -39,10 +51,45 @@ const Home = () => {
   };
 
   const { products, categories } = data;
+  const { product } = productDetails;
 
   useEffect(() => {
     initialize();
   }, []);
+
+  const getProductDetails = async (id) => {
+    try {
+      const response = await getProductDetail(id);
+      setProductDetails({ show: true, product: response });
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  };
+
+  const productDetailCard = () => (
+    <ProductDetailWrapper
+      show={productDetails.show}
+      onClick={() => setProductDetails({ ...productDetails, show: false })}
+    >
+      <ProductDetailContainer>
+        <CloseButton
+          onClick={() => setProductDetails({ ...productDetails, show: false })}
+        >
+          X
+        </CloseButton>
+        <ProductDetailImg
+          src={`http://localhost:8000/${product?.photo?.filePath}`}
+          alt={product.name}
+        />
+        <ProductDetailGroup>
+          <ProductTitle>{product.name}</ProductTitle>
+          <ProductDescription>{product.description}</ProductDescription>
+          <ProductPrice>${product.price}</ProductPrice>
+        </ProductDetailGroup>
+      </ProductDetailContainer>
+    </ProductDetailWrapper>
+  );
 
   return (
     <HomeWrapper>
@@ -60,9 +107,13 @@ const Home = () => {
           </CategoryLinksCard>
         </CategoryLinks>
         <ProductContainer>
+          {productDetailCard()}
           {products
             ? products.map((product) => (
-                <ProductCard key={product._id}>
+                <ProductCard
+                  key={product._id}
+                  onClick={() => getProductDetails(product._id)}
+                >
                   <ProductImage
                     src={`http://localhost:8000/${product.photo.filePath}`}
                     alt={product.name}

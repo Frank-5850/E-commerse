@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const FormWrapper = styled.div`
   z-index: 10;
   display: flex;
-  flex-flow: wrap column;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   position: fixed;

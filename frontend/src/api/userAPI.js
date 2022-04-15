@@ -12,3 +12,12 @@ export const getProducts = async () => {
     return error.response.data;
   }
 };
+
+export const getProductDetail = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8000/api/product/${id}`);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
