@@ -55,6 +55,19 @@ const Home = () => {
     }
   };
 
+  const sortProductsByCategory = async (category) => {
+    try {
+      const productArray = await getProducts();
+      console.log(productArray);
+      const newProducts = productArray.filter(
+        (product) => product.category.name === category
+      );
+      setData({ ...data, products: newProducts });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -63,7 +76,10 @@ const Home = () => {
             <CategoryLinksHeader>Categories</CategoryLinksHeader>
             {categories
               ? categories.map((category) => (
-                  <CategoryLinksItems key={category._id}>
+                  <CategoryLinksItems
+                    key={category._id}
+                    onClick={() => sortProductsByCategory(category.name)}
+                  >
                     {category.name}
                   </CategoryLinksItems>
                 ))
