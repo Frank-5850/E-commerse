@@ -1,0 +1,53 @@
+import React from "react";
+import {
+  ProductDetailWrapper,
+  ProductDetailContainer,
+  ProductDetailImg,
+  ProductDetailGroup,
+  ProductDetailSection,
+} from "../productDetailsModal/productDetailCard.styles";
+import {
+  ProductTitle,
+  ProductDescription,
+  ProductPrice,
+} from "../productCard/productCard.styles";
+import { CloseButton } from "../user/signin/forms.styles";
+
+const ProductDetailsModal = ({
+  product,
+  productDetails,
+  setProductDetails,
+}) => {
+  return (
+    <ProductDetailWrapper
+      show={productDetails.show}
+      onClick={() => setProductDetails({ ...productDetails, show: false })}
+    >
+      <ProductDetailContainer onClick={(e) => e.stopPropagation()}>
+        <CloseButton
+          onClick={() => setProductDetails({ ...productDetails, show: false })}
+        >
+          X
+        </CloseButton>
+        <ProductDetailImg
+          src={`http://localhost:8000/${product?.photo?.filePath}`}
+          alt={product.name}
+        />
+        <ProductDetailSection>
+          <ProductDetailGroup>
+            <ProductTitle>{product.name}</ProductTitle>
+            <ProductDescription>{product.description}</ProductDescription>
+            <ProductPrice>${product.price}</ProductPrice>
+          </ProductDetailGroup>
+          <ProductDetailGroup>
+            Qty:
+            <input type="number" />
+            <button>Add to Cart</button>
+          </ProductDetailGroup>
+        </ProductDetailSection>
+      </ProductDetailContainer>
+    </ProductDetailWrapper>
+  );
+};
+
+export default ProductDetailsModal;
