@@ -35,12 +35,18 @@ export const ProductDetailImg = styled.img`
   padding: 5px;
 `;
 
-export const ProductDetailGroup = styled.div`
+export const ProductDetailSection = styled.div`
   display: flex;
   flex-flow: column;
-  padding: 10px;
-  // justify-content: center;
-  // align-items: center;
+  padding: 5px;
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
+`;
+
+export const ProductDetailGroup = styled.div`
+  display: flex;
+  flex-flow: ${(props) => (props.row ? "row" : "column")};
+  padding: 5px;
+  justify-content: ${(props) => (props.row ? "space-between" : "center")};
+  width: 100%;
 `;

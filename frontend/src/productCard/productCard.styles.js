@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductCard = styled.div`
+export const ProductCardContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: center;

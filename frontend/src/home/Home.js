@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Signin from "../user/signin/Signin";
 import Signup from "../user/signup/Signup";
+import ProductCard from "../productCard/ProductCard";
 import { getProductDetail, getProducts } from "./../api/userAPI";
 import { getCategories } from "./../api/adminAPI";
-import {
-  ProductCard,
-  ProductTitle,
-  ProductImage,
-  ProductDescription,
-  ProductPrice,
-} from "./productCard.styles";
 import {
   HomeWrapper,
   ProductContainer,
@@ -25,7 +19,13 @@ import {
   ProductDetailContainer,
   ProductDetailImg,
   ProductDetailGroup,
+  ProductDetailSection,
 } from "./productDetailCard.styles";
+import {
+  ProductTitle,
+  ProductDescription,
+  ProductPrice,
+} from "../productCard/productCard.styles";
 import { CloseButton } from "../user/signin/forms.styles";
 
 const Home = () => {
@@ -72,7 +72,7 @@ const Home = () => {
       show={productDetails.show}
       onClick={() => setProductDetails({ ...productDetails, show: false })}
     >
-      <ProductDetailContainer>
+      <ProductDetailContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton
           onClick={() => setProductDetails({ ...productDetails, show: false })}
         >
@@ -82,11 +82,18 @@ const Home = () => {
           src={`http://localhost:8000/${product?.photo?.filePath}`}
           alt={product.name}
         />
-        <ProductDetailGroup>
-          <ProductTitle>{product.name}</ProductTitle>
-          <ProductDescription>{product.description}</ProductDescription>
-          <ProductPrice>${product.price}</ProductPrice>
-        </ProductDetailGroup>
+        <ProductDetailSection>
+          <ProductDetailGroup>
+            <ProductTitle>{product.name}</ProductTitle>
+            <ProductDescription>{product.description}</ProductDescription>
+            <ProductPrice>${product.price}</ProductPrice>
+          </ProductDetailGroup>
+          <ProductDetailGroup>
+            Qty:
+            <input type="number" />
+            <button>Add to Cart</button>
+          </ProductDetailGroup>
+        </ProductDetailSection>
       </ProductDetailContainer>
     </ProductDetailWrapper>
   );
@@ -112,16 +119,9 @@ const Home = () => {
             ? products.map((product) => (
                 <ProductCard
                   key={product._id}
-                  onClick={() => getProductDetails(product._id)}
-                >
-                  <ProductImage
-                    src={`http://localhost:8000/${product.photo.filePath}`}
-                    alt={product.name}
-                  />
-                  <ProductTitle>{product.name}</ProductTitle>
-                  <ProductDescription>{product.description}</ProductDescription>
-                  <ProductPrice>${product.price}</ProductPrice>
-                </ProductCard>
+                  product={product}
+                  getProductDetails={getProductDetails}
+                />
               ))
             : null}
         </ProductContainer>
