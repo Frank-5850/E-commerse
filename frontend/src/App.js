@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cart from "./cart/Cart";
 import Home from "./home/Home";
 import Nav from "./nav/Nav";
 import AdminRoute from "./routes/AdminRoute";
@@ -13,6 +14,7 @@ const App = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route
           path="/admin/dashboard"
           element={

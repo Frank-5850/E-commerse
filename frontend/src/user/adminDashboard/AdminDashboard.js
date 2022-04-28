@@ -7,7 +7,7 @@ import {
 import { setSuccess } from "../../redux/slices/successSlice";
 import { isAuthenticated } from "../../api/authAPI";
 import CreateCategory from "../createCategory/CreateCategory";
-import CreateProduct from "../CreateProduct/CreateProduct";
+import CreateProduct from "../createProduct/CreateProduct";
 import {
   DashboardContainer,
   DashboardInfo,

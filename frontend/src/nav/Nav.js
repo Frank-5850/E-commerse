@@ -35,6 +35,8 @@ const Nav = () => {
             Log Out
           </NavButton>
         )}
+
+        <NavItem to="/cart">Cart</NavItem>
       </NavGroup>
     </NavWrapper>
   );

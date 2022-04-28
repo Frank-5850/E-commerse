@@ -57,12 +57,13 @@ const Home = () => {
 
   const sortProductsByCategory = async (category) => {
     try {
+      console.log(category);
       const productArray = await getProducts();
-      console.log(productArray);
-      const newProducts = productArray.filter(
-        (product) => product.category.name === category
-      );
-      setData({ ...data, products: newProducts });
+      const sortedProducts =
+        category !== "all"
+          ? productArray.filter((product) => product.category.name === category)
+          : productArray;
+      setData({ ...data, products: sortedProducts });
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +75,9 @@ const Home = () => {
         <CategoryLinks>
           <CategoryLinksCard>
             <CategoryLinksHeader>Categories</CategoryLinksHeader>
+            <CategoryLinksItems onClick={() => sortProductsByCategory("all")}>
+              All
+            </CategoryLinksItems>
             {categories
               ? categories.map((category) => (
                   <CategoryLinksItems
