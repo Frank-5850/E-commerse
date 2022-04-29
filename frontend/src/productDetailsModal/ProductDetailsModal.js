@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ProductDetailWrapper,
   ProductDetailContainer,
@@ -12,12 +12,35 @@ import {
   ProductPrice,
 } from "../productCard/productCard.styles";
 import { CloseButton } from "../user/signin/forms.styles";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const ProductDetailsModal = ({
   product,
   productDetails,
   setProductDetails,
 }) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cartSlice);
+
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  };
+
+  const handleAddToCart = async () => {
+    try {
+      product.quantity = quantity;
+      await dispatch(
+        addToCart(...cart, {
+          product: product,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ProductDetailWrapper
       show={productDetails.show}
@@ -41,8 +64,12 @@ const ProductDetailsModal = ({
           </ProductDetailGroup>
           <ProductDetailGroup>
             Qty:
-            <input type="number" />
-            <button>Add to Cart</button>
+            <input
+              type="number"
+              value={quantity}
+              onChange={handleQuantityChange}
+            />
+            <button onClick={() => handleAddToCart()}>Add to Cart</button>
           </ProductDetailGroup>
         </ProductDetailSection>
       </ProductDetailContainer>
