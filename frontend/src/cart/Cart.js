@@ -11,7 +11,7 @@ import {
 } from "./cart.styles";
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cartSlice);
+  const { cart } = useSelector((state) => state.cartSlice);
 
   useEffect(() => {
     console.log(cart);
@@ -25,18 +25,20 @@ const Cart = () => {
         </CartHeader>
         <CartInfoWrapper>
           <OrderContainer>
-            {cart.map((product, index) => (
-              <div key={index}>
-                <img
-                  src={`http://localhost:8000/${product.photo?.filePath}`}
-                  alt={product.name}
-                />
-                <div>
-                  <h3>{product.name}</h3>
-                  <p>{product.price}</p>
+            {cart &&
+              cart.map((product, index) => (
+                <div key={index}>
+                  <img
+                    src={`http://localhost:8000/${product.photo?.filePath}`}
+                    alt={product.name}
+                  />
+                  <div>
+                    <h3>{product.name}</h3>
+                    <p>{product.price}</p>
+                    <p>{product.quantity}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </OrderContainer>
           <CartTotalContainer>Totals</CartTotalContainer>
         </CartInfoWrapper>
