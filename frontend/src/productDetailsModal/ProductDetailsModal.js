@@ -22,7 +22,7 @@ const ProductDetailsModal = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cartSlice);
+  const cart = useSelector((state) => state.cartSlice);
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
@@ -30,12 +30,7 @@ const ProductDetailsModal = ({
 
   const handleAddToCart = async () => {
     try {
-      product.quantity = quantity;
-      await dispatch(
-        addToCart(...cart, {
-          product: product,
-        })
-      );
+      await dispatch(addToCart(product));
     } catch (error) {
       console.log(error);
     }
