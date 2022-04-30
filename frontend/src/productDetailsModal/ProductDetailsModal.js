@@ -32,8 +32,7 @@ const ProductDetailsModal = ({
     try {
       for (let i = 0; i < cart.length; i++) {
         if (cart[i]._id === product._id) {
-          console.log(cart[i]._id);
-          console.log(product._id);
+          console.log(cart[i]);
           dispatch(
             updateCart({
               id: cart[i]._id,
@@ -45,6 +44,7 @@ const ProductDetailsModal = ({
       }
       product.quantity = quantity;
       await dispatch(addToCart(product));
+      console.log(cart);
     } catch (error) {
       console.log(error);
     }

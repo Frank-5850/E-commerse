@@ -5,17 +5,22 @@ import {
   CartContainer,
   CartHeader,
   Header,
-  CartInfoWrapper,
   OrderContainer,
+  CartItemCard,
+  CartItemImg,
+  CartItemDetails,
+  CartItemName,
+  CartItemDescription,
+  CartItemPrice,
+  CartItemQuantity,
   CartTotalContainer,
+  CartDetailsContainer,
 } from "./cart.styles";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.cartSlice);
 
-  useEffect(() => {
-    console.log(cart);
-  }, []);
+  const getTotalPriceForItem = (a, b) => a * b;
 
   return (
     <CartWrapper>
@@ -23,25 +28,32 @@ const Cart = () => {
         <CartHeader>
           <Header>Your cart...</Header>
         </CartHeader>
-        <CartInfoWrapper>
-          <OrderContainer>
-            {cart &&
-              cart.map((product, index) => (
-                <div key={index}>
-                  <img
-                    src={`http://localhost:8000/${product.photo?.filePath}`}
-                    alt={product.name}
-                  />
-                  <div>
-                    <h3>{product.name}</h3>
-                    <p>{product.price}</p>
-                    <p>{product.quantity}</p>
-                  </div>
-                </div>
-              ))}
-          </OrderContainer>
-          <CartTotalContainer>Totals</CartTotalContainer>
-        </CartInfoWrapper>
+        <OrderContainer>
+          {cart &&
+            cart.map((product, index) => (
+              <CartItemCard key={index}>
+                <CartItemImg
+                  src={`http://localhost:8000/${product.photo?.filePath}`}
+                  alt={product.name}
+                />
+                <CartDetailsContainer>
+                  <CartItemDetails>
+                    <CartItemName>{product.name}</CartItemName>
+                    <CartItemDescription>
+                      {product.description}
+                    </CartItemDescription>
+                    <CartItemPrice>${product.price}</CartItemPrice>
+                    <CartItemQuantity defaultValue={product.quantity} />
+                  </CartItemDetails>
+                  <CartTotalContainer>
+                    <CartItemPrice>
+                      ${getTotalPriceForItem(product.price, product.quantity)}
+                    </CartItemPrice>
+                  </CartTotalContainer>
+                </CartDetailsContainer>
+              </CartItemCard>
+            ))}
+        </OrderContainer>
       </CartContainer>
     </CartWrapper>
   );

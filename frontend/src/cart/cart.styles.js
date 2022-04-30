@@ -29,25 +29,75 @@ export const Header = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
-`;
-
-export const CartInfoWrapper = styled.div`
-  display: flex;
-  flex-flow: row;
-  justify-content: space-around;
-  width: 100%;
+  padding: 10px;
 `;
 
 export const OrderContainer = styled.div`
   display: flex;
   flex-flow: column;
-  justify-content: center;
-  width: 100%;
+`;
+
+export const CartItemCard = styled.div`
+  display: flex;
+  flex-flow: row;
+  padding: 10px;
+`;
+
+export const CartItemImg = styled.img`
+  width: 100px;
+  height: 100px;
+`;
+
+export const CartItemDetails = styled.div`
+  display: flex;
+  flex-flow: column;
+  padding: 10px;
+  border-left: 1px solid black;
+`;
+
+export const CartItemName = styled.h3`
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+`;
+
+export const CartItemDescription = styled.p`
+  font-size: 1rem;
+  margin: 0 0 5px 0;
+`;
+
+export const CartItemPrice = styled.p`
+  font-size: 1rem;
+  margin: 0;
+`;
+
+export const CartItemQuantity = styled.input`
+  width: 50px;
+  height: 25px;
+  font-size: 1rem;
+  margin: 0;
+`;
+
+export const CartTotal = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 10px;
 `;
 
 export const CartTotalContainer = styled.div`
+  width: 100px;
+  height: 100px;
   display: flex;
-  flex-flow: column;
   justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-left: 1px solid black;
+`;
+
+export const CartDetailsContainer = styled.div`
+  display: flex;
+  flex-flow: row;
   width: 100%;
+  justify-content: space-between;
 `;

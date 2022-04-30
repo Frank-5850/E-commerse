@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
     updateCart: (state, action) => {
       const { id, quantity } = action.payload;
       const product = state.cart.find((p) => p._id === id);
-      product.quantity += quantity;
+      product.quantity = parseInt(product.quantity) + parseInt(quantity);
     },
   },
 });
