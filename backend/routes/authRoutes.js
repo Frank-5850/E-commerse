@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { findUserById } = require("../controllers/user");
+const { findUserById, updateUserPassword } = require("../controllers/user");
 const {
   register,
   login,
@@ -13,6 +13,7 @@ const {
 // });
 router.post("/register", register);
 router.post("/login", login);
+router.post("/updatePassword/:userId", isAuth, updateUserPassword);
 router.get("/logout", logout);
 router.delete("/user/delete/:userId", isAuth, deleteUser);
 

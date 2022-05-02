@@ -13,4 +13,19 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+  updateUserPassword: async (req, res) => {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      const user = req.user;
+      const isMatch = await user.comparePassword(oldPassword);
+      if (!isMatch) {
+        return res.status(401).json({ msg: "Incorrect password" });
+      }
+      user.password = newPassword;
+      await user.save();
+      res.json({ msg: "Password updated successfully" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
