@@ -21,3 +21,22 @@ export const getProductDetail = async (id) => {
     return error.response.data;
   }
 };
+
+export const changePassword = async (
+  id,
+  oldPassword,
+  newPassword,
+  confirmPassword,
+  token
+) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8000/api/user/updatePassword/${id}`,
+      { oldPassword, newPassword, confirmPassword },
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

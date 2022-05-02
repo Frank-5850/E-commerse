@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   findUserById: async (req, res, next, id) => {
@@ -15,15 +16,27 @@ module.exports = {
   },
   updateUserPassword: async (req, res) => {
     try {
-      const { oldPassword, newPassword } = req.body;
+      const { oldPassword, newPassword, confirmPassword } = req.body;
       const user = req.user;
-      const isMatch = await user.comparePassword(oldPassword);
+      if (!oldPassword || !newPassword || !confirmPassword) {
+        return res.status(400).json({ msg: "All fields are required" });
+      }
+      if (newPassword !== confirmPassword) {
+        return res
+          .status(400)
+          .json({ msg: "new password and confirm password must match" });
+      }
+      const isMatch = await bcrypt.compare(oldPassword, user.hashed_password);
+      console.log(user);
+      console.log(req.body);
       if (!isMatch) {
         return res.status(401).json({ msg: "Incorrect password" });
       }
-      user.password = newPassword;
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      user.hashed_password = hashedPassword;
       await user.save();
-      res.json({ msg: "Password updated successfully" });
+      res.json({ success: "Password updated successfully" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

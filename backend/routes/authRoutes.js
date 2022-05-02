@@ -13,7 +13,7 @@ const {
 // });
 router.post("/register", register);
 router.post("/login", login);
-router.post("/updatePassword/:userId", isAuth, updateUserPassword);
+router.put("/user/updatePassword/:userId", isAuth, updateUserPassword);
 router.get("/logout", logout);
 router.delete("/user/delete/:userId", isAuth, deleteUser);
 

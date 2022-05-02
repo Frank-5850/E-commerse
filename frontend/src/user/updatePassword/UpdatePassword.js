@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { isAuthenticated } from "../../api/authAPI";
+import { changePassword } from "../../api/userAPI";
 import { showChangePasswordForm } from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
 import {
   CloseButton,
   FormContainer,
@@ -14,12 +17,15 @@ import {
 
 const UpdatePassword = () => {
   const [values, setValues] = useState({
-    password: "",
+    oldPassword: "",
+    newPassword: "",
     confirmPassword: "",
     error: "",
   });
-  const { password, confirmPassword, error } = values;
+  const { oldPassword, newPassword, confirmPassword, error } = values;
   const dispatch = useDispatch();
+
+  const { token, user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setValues({
@@ -28,6 +34,53 @@ const UpdatePassword = () => {
       [name]: event.target.value,
     });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await setValues({
+        ...values,
+        error: false,
+      });
+      const data = await changePassword(
+        user.id,
+        oldPassword,
+        newPassword,
+        confirmPassword,
+        token
+      );
+      console.log(data);
+      if (data.msg) {
+        setValues({
+          ...values,
+          error: data.msg,
+        });
+      } else {
+        await dispatch(
+          setSuccess({
+            success: true,
+            msg: data.success,
+          })
+        );
+        await dispatch(showChangePasswordForm(false));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const showError = () => (
+    <div
+      style={{
+        display: error ? "" : "none",
+        color: "red",
+        fontSize: "0.8rem",
+        marginBottom: "0.5rem",
+      }}
+    >
+      {error}
+    </div>
+  );
 
   return (
     <FormWrapper onClick={() => dispatch(showChangePasswordForm())}>
@@ -38,12 +91,18 @@ const UpdatePassword = () => {
         <Header>
           <HeaderText>Change Password</HeaderText>
         </Header>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
-            placeholder="Password"
-            onChange={handleChange("password")}
+            placeholder="Old Password"
+            onChange={handleChange("oldPassword")}
             type="password"
-            value={password}
+            value={oldPassword}
+          />
+          <Input
+            placeholder="New Password"
+            onChange={handleChange("newPassword")}
+            type="password"
+            value={newPassword}
           />
           <Input
             placeholder="Confirm Password"
@@ -51,7 +110,10 @@ const UpdatePassword = () => {
             type="password"
             value={confirmPassword}
           />
-          <ConfirmButton>Change Password</ConfirmButton>
+          <ConfirmButton onClick={(e) => handleSubmit(e)}>
+            Change Password
+          </ConfirmButton>
+          {showError()}
         </Form>
       </FormContainer>
     </FormWrapper>
