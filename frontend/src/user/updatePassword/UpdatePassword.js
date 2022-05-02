@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showChangePasswordForm } from "../../redux/slices/formToggleSlice";
 import {
   CloseButton,
   FormContainer,
@@ -17,6 +19,7 @@ const UpdatePassword = () => {
     error: "",
   });
   const { password, confirmPassword, error } = values;
+  const dispatch = useDispatch();
 
   const handleChange = (name) => (event) => {
     setValues({
@@ -27,9 +30,11 @@ const UpdatePassword = () => {
   };
 
   return (
-    <FormWrapper>
-      <FormContainer>
-        <CloseButton>X</CloseButton>
+    <FormWrapper onClick={() => dispatch(showChangePasswordForm())}>
+      <FormContainer onClick={(e) => e.stopPropagation()}>
+        <CloseButton onClick={() => dispatch(showChangePasswordForm())}>
+          X
+        </CloseButton>
         <Header>
           <HeaderText>Change Password</HeaderText>
         </Header>

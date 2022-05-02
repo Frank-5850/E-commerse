@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   showCategoryForm,
+  showChangePasswordForm,
   showProductForm,
 } from "../../redux/slices/formToggleSlice";
 import { setSuccess } from "../../redux/slices/successSlice";
@@ -19,9 +20,12 @@ import {
   DashboardName,
   DashboardText,
 } from "./dashboard.styles";
+import UpdatePassword from "../updatePassword/UpdatePassword";
 
 const AdminDashboard = () => {
-  const { category, product } = useSelector((state) => state.formToggleSlice);
+  const { category, product, changePassword } = useSelector(
+    (state) => state.formToggleSlice
+  );
   const { success, msg } = useSelector((state) => state.successSlice);
   const dispatch = useDispatch();
 
@@ -52,6 +56,7 @@ const AdminDashboard = () => {
     <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
       {category && <CreateCategory />}
       {product && <CreateProduct />}
+      {changePassword && <UpdatePassword />}
       {showSuccess()}
       <DashboardContainer>
         <DashboardLinks>
@@ -63,7 +68,11 @@ const AdminDashboard = () => {
               <DashboardLinkItems onClick={() => dispatch(showProductForm())}>
                 Create Product
               </DashboardLinkItems>
-              <DashboardLinkItems>Update Profile</DashboardLinkItems>
+              <DashboardLinkItems
+                onClick={() => dispatch(showChangePasswordForm())}
+              >
+                Change Password
+              </DashboardLinkItems>
               <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
               <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
             </DashboardLinkGroup>
