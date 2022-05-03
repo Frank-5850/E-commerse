@@ -27,8 +27,6 @@ module.exports = {
           .json({ msg: "new password and confirm password must match" });
       }
       const isMatch = await bcrypt.compare(oldPassword, user.hashed_password);
-      console.log(user);
-      console.log(req.body);
       if (!isMatch) {
         return res.status(401).json({ msg: "Incorrect password" });
       }

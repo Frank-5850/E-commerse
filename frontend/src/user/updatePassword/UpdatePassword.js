@@ -49,7 +49,6 @@ const UpdatePassword = () => {
         confirmPassword,
         token
       );
-      console.log(data);
       if (data.msg) {
         setValues({
           ...values,
@@ -65,7 +64,10 @@ const UpdatePassword = () => {
         await dispatch(showChangePasswordForm(false));
       }
     } catch (error) {
-      console.log(error);
+      await setValues({
+        ...values,
+        error: error.response.data.msg,
+      });
     }
   };
 
