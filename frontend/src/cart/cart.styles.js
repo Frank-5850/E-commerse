@@ -21,11 +21,19 @@ export const CartHeader = styled.div`
   display: flex;
   flex-flow: row;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid black;
 `;
 
 export const Header = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 10px;
+`;
+
+export const CartTotal = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
@@ -44,8 +52,12 @@ export const CartItemCard = styled.div`
 `;
 
 export const CartItemImg = styled.img`
-  width: 100px;
-  height: 100px;
+  align-self: center;
+  min-width: 100px;
+  max-width: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  padding-right: 5px;
 `;
 
 export const CartItemDetails = styled.div`
@@ -76,13 +88,6 @@ export const CartItemQuantity = styled.input`
   height: 25px;
   font-size: 1rem;
   margin: 0;
-`;
-
-export const CartTotal = styled.div`
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  padding: 10px;
 `;
 
 export const CartTotalContainer = styled.div`

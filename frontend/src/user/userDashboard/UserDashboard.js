@@ -1,5 +1,10 @@
 import React from "react";
 import { isAuthenticated } from "../../api/authAPI";
+import { changePassword } from "./../../api/userAPI";
+import { useSelector, useDispatch } from "react-redux";
+import { setSuccess } from "../../redux/slices/successSlice";
+import UpdatePassword from "../updatePassword/UpdatePassword";
+import { showChangePasswordForm } from "../../redux/slices/formToggleSlice";
 import {
   DashboardContainer,
   DashboardInfo,
@@ -13,27 +18,45 @@ import {
 } from "../adminDashboard/dashboard.styles";
 
 const UserDashboard = () => {
+  const { changePassword } = useSelector((state) => state.formToggleSlice);
+  const { success, msg } = useSelector((state) => state.successSlice);
   const { user } = isAuthenticated();
+  const dispatch = useDispatch();
 
   const date = new Date(user.createdAt).toLocaleString("default", {
     month: "long",
     year: "numeric",
   });
 
+  const showSuccess = () => (
+    <div
+      style={{
+        display: success ? "" : "none",
+        color: "green",
+        fontSize: "1rem",
+        margin: "0.5rem",
+      }}
+    >
+      {msg}
+    </div>
+  );
+
   return (
-    <DashboardWrapper>
+    <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
+      {changePassword && <UpdatePassword />}
+      {showSuccess()}
       <DashboardContainer>
-        {/* <DashboardLinks>
+        <DashboardLinks>
           <DashboardCard>
             <DashboardLinkGroup>
-              <DashboardLinkItems>Create Category</DashboardLinkItems>
-              <DashboardLinkItems>Create Product</DashboardLinkItems>
-              <DashboardLinkItems>Update Profile</DashboardLinkItems>
-              <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
-              <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
+              <DashboardLinkItems
+                onClick={() => dispatch(showChangePasswordForm())}
+              >
+                Change Password
+              </DashboardLinkItems>
             </DashboardLinkGroup>
           </DashboardCard>
-        </DashboardLinks> */}
+        </DashboardLinks>
         <DashboardInfo>
           <DashboardCard>
             <DashboardName>

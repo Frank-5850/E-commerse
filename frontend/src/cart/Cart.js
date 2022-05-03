@@ -15,6 +15,7 @@ import {
   CartItemQuantity,
   CartTotalContainer,
   CartDetailsContainer,
+  CartTotal,
 } from "./cart.styles";
 
 const Cart = () => {
@@ -22,11 +23,20 @@ const Cart = () => {
 
   const getTotalPriceForItem = (a, b) => a * b;
 
+  const getTotalPrice = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      total += getTotalPriceForItem(item.price, item.quantity);
+    });
+    return total;
+  };
+
   return (
     <CartWrapper>
       <CartContainer>
         <CartHeader>
           <Header>Your cart...</Header>
+          <CartTotal>Total: ${getTotalPrice()}</CartTotal>
         </CartHeader>
         <OrderContainer>
           {cart &&
