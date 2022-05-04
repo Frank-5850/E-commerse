@@ -14,9 +14,16 @@ export const cartSlice = createSlice({
       const product = state.cart.find((p) => p._id === id);
       product.quantity = parseInt(product.quantity) + parseInt(quantity);
     },
+    updateQuantity: (state, action) => {
+      console.log(action.payload);
+      const { id, quantity } = action.payload;
+      const product = state.cart.find((p) => p._id === id);
+      console.log(product);
+      product.quantity = parseInt(quantity);
+    },
   },
 });
 
-export const { addToCart, updateCart } = cartSlice.actions;
+export const { addToCart, updateCart, updateQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateQuantity } from "../redux/slices/cartSlice";
 import {
   CartWrapper,
   CartContainer,
@@ -19,6 +20,9 @@ import {
 } from "./cart.styles";
 
 const Cart = () => {
+  const [quantity, setQuantity] = useState(1);
+  const [showInput, setShowInput] = useState(false);
+  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cartSlice);
 
   const getTotalPriceForItem = (a, b) => a * b;
@@ -29,6 +33,10 @@ const Cart = () => {
       total += getTotalPriceForItem(item.price, item.quantity);
     });
     return total;
+  };
+
+  const onChange = (e) => {
+    setQuantity(e.target.value);
   };
 
   return (
@@ -53,7 +61,14 @@ const Cart = () => {
                       {product.description}
                     </CartItemDescription>
                     <CartItemPrice>${product.price}</CartItemPrice>
-                    <CartItemQuantity defaultValue={product.quantity} />
+                    <CartItemQuantity
+                      defaultValue={product.quantity}
+                      onChange={onChange}
+                      input={showInput}
+                    />
+                    <button onClick={() => setShowInput(!showInput)}>
+                      update
+                    </button>
                   </CartItemDetails>
                   <CartTotalContainer>
                     <CartItemPrice>

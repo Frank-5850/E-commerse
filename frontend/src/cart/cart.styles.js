@@ -88,6 +88,7 @@ export const CartItemQuantity = styled.input`
   height: 25px;
   font-size: 1rem;
   margin: 0;
+  border: ${(props) => (props.input ? "1px solid black" : "none")};
 `;
 
 export const CartTotalContainer = styled.div`
