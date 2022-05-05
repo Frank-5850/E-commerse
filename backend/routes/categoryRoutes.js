@@ -12,6 +12,9 @@ const {
 const { findUserById } = require("../controllers/user");
 
 router.post("/category/create/:userId", isAuth, isAdmin, createCategory);
+router.get("/categories", listCategories);
+
+// still need to complete in front-end
 router.get("/category/:categoryId", readCategory);
 router.put(
   "/category/update/:categoryId/:userId",
@@ -25,8 +28,6 @@ router.delete(
   isAdmin,
   deleteCategory
 );
-
-router.get("/categories", listCategories);
 
 router.param("userId", findUserById);
 router.param("categoryId", findCategoryById);

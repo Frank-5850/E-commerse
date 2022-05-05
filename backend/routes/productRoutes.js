@@ -18,7 +18,10 @@ router.post(
   upload.single("photo"),
   createProduct
 );
+router.get("/products", getAllProducts);
 router.get("/product/:productId", findProductById, readProduct);
+
+// still need to complete in front-end
 router.put(
   "/product/update/:productId/:userId",
   isAuth,
@@ -27,8 +30,6 @@ router.put(
   updateProduct
 );
 router.delete("/product/:productId/:userId", isAuth, isAdmin, deleteProduct);
-
-router.get("/products", getAllProducts);
 
 router.param("userId", findUserById);
 router.param("productId", findProductById);

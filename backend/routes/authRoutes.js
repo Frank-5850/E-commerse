@@ -13,8 +13,10 @@ const {
 // });
 router.post("/register", register);
 router.post("/login", login);
-router.put("/user/updatePassword/:userId", isAuth, updateUserPassword);
 router.get("/logout", logout);
+router.put("/user/updatePassword/:userId", isAuth, updateUserPassword);
+
+// Still need to complete in front-end
 router.delete("/user/delete/:userId", isAuth, deleteUser);
 
 router.param("userId", findUserById);
