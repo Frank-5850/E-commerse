@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { updateQuantity } from "../redux/slices/cartSlice";
+import React, { useEffect, useState } from "react";
 import {
   CartWrapper,
   CartContainer,
@@ -18,19 +16,27 @@ import {
   CartDetailsContainer,
   CartTotal,
 } from "./cart.styles";
+import { getCart } from "./cartHelper";
 
 const Cart = () => {
+  const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [showInput, setShowInput] = useState(false);
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cartSlice);
+
+  const initializeCart = () => {
+    setCart(getCart());
+  };
+
+  useEffect(() => {
+    initializeCart();
+  }, []);
 
   const getTotalPriceForItem = (a, b) => a * b;
 
   const getTotalPrice = () => {
     let total = 0;
     cart.forEach((item) => {
-      total += getTotalPriceForItem(item.price, item.quantity);
+      total += getTotalPriceForItem(item.price, item.count);
     });
     return total;
   };
@@ -43,7 +49,7 @@ const Cart = () => {
     <CartWrapper>
       <CartContainer>
         <CartHeader>
-          <Header>Your cart...</Header>
+          <Header>You have {`${cart.length}`} items in your cart...</Header>
           <CartTotal>Total: ${getTotalPrice()}</CartTotal>
         </CartHeader>
         <OrderContainer>
@@ -62,7 +68,7 @@ const Cart = () => {
                     </CartItemDescription>
                     <CartItemPrice>${product.price}</CartItemPrice>
                     <CartItemQuantity
-                      defaultValue={product.quantity}
+                      defaultValue={product.count}
                       onChange={onChange}
                       input={showInput}
                     />
@@ -72,7 +78,7 @@ const Cart = () => {
                   </CartItemDetails>
                   <CartTotalContainer>
                     <CartItemPrice>
-                      ${getTotalPriceForItem(product.price, product.quantity)}
+                      ${getTotalPriceForItem(product.price, product.count)}
                     </CartItemPrice>
                   </CartTotalContainer>
                 </CartDetailsContainer>
