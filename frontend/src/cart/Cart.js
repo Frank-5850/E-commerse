@@ -16,7 +16,7 @@ import {
   CartDetailsContainer,
   CartTotal,
 } from "./cart.styles";
-import { getCart } from "./cartHelper";
+import { getCart, updateItem } from "./cartHelper";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -29,7 +29,7 @@ const Cart = () => {
 
   useEffect(() => {
     initializeCart();
-  }, []);
+  }, [quantity]);
 
   const getTotalPriceForItem = (a, b) => a * b;
 
@@ -41,8 +41,11 @@ const Cart = () => {
     return total;
   };
 
-  const onChange = (e) => {
-    setQuantity(e.target.value);
+  const onChange = (productId) => (e) => {
+    setQuantity(e.target.value < 1 ? 1 : e.target.value);
+    if (e.target.value >= 1) {
+      updateItem(productId, e.target.value);
+    }
   };
 
   return (
@@ -67,14 +70,14 @@ const Cart = () => {
                       {product.description}
                     </CartItemDescription>
                     <CartItemPrice>${product.price}</CartItemPrice>
-                    <CartItemQuantity
-                      defaultValue={product.count}
-                      onChange={onChange}
-                      input={showInput}
-                    />
-                    <button onClick={() => setShowInput(!showInput)}>
-                      update
-                    </button>
+                    <div>
+                      Qty:{" "}
+                      <CartItemQuantity
+                        type="number"
+                        value={product.count}
+                        onChange={onChange(product._id)}
+                      />
+                    </div>
                   </CartItemDetails>
                   <CartTotalContainer>
                     <CartItemPrice>

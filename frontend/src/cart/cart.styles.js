@@ -84,11 +84,13 @@ export const CartItemPrice = styled.p`
 `;
 
 export const CartItemQuantity = styled.input`
-  width: 50px;
+  width: 35px;
   height: 25px;
   font-size: 1rem;
-  margin: 0;
-  border: ${(props) => (props.input ? "1px solid black" : "none")};
+  margin: 5px 0;
+  border: 0.5px solid grey;
+  border-radius: 5px;
+  padding: 0 5px;
 `;
 
 export const CartTotalContainer = styled.div`

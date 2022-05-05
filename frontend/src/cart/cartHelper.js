@@ -1,4 +1,4 @@
-export const addItem = (item, quantity) => {
+export const addItem = (item) => {
   let cart = [];
   if (typeof window !== "undefined") {
     if (localStorage.getItem("cart")) {
@@ -33,4 +33,19 @@ export const totalItems = () => {
     }
   }
   return 0;
+};
+
+export const updateItem = (productId, count) => {
+  let cart = [];
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    cart.map((product, index) => {
+      if (product._id === productId) {
+        cart[index].count = count;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 };
