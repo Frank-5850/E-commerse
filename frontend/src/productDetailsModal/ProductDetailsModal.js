@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   ProductDetailWrapper,
   ProductDetailContainer,
@@ -12,42 +12,15 @@ import {
   ProductPrice,
 } from "../productCard/productCard.styles";
 import { CloseButton } from "../user/signin/forms.styles";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateCart } from "../redux/slices/cartSlice";
+import { addItem } from "../cart/cartHelper";
 
 const ProductDetailsModal = ({
   product,
   productDetails,
   setProductDetails,
 }) => {
-  const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cartSlice);
-
-  const handleQuantityChange = (e) => {
-    setQuantity(e.target.value);
-  };
-
-  const handleAddToCart = async () => {
-    try {
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i]._id === product._id) {
-          console.log(cart[i]);
-          dispatch(
-            updateCart({
-              id: cart[i]._id,
-              quantity: quantity,
-            })
-          );
-          return;
-        }
-      }
-      product.quantity = quantity;
-      await dispatch(addToCart(product));
-      console.log(cart);
-    } catch (error) {
-      console.log(error);
-    }
+  const addToCart = () => {
+    addItem(product);
   };
 
   return (
@@ -72,13 +45,7 @@ const ProductDetailsModal = ({
             <ProductPrice>${product.price}</ProductPrice>
           </ProductDetailGroup>
           <ProductDetailGroup>
-            Qty:
-            <input
-              type="number"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
-            <button onClick={() => handleAddToCart()}>Add to Cart</button>
+            <button onClick={() => addToCart()}>Add to Cart</button>
           </ProductDetailGroup>
         </ProductDetailSection>
       </ProductDetailContainer>
