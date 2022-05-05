@@ -15,13 +15,14 @@ import {
   CartTotalContainer,
   CartDetailsContainer,
   CartTotal,
+  RemoveButton,
+  CartUpdateOptions,
 } from "./cart.styles";
-import { getCart, updateItem } from "./cartHelper";
+import { getCart, removeItem, updateItem } from "./cartHelper";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const [showInput, setShowInput] = useState(false);
 
   const initializeCart = () => {
     setCart(getCart());
@@ -48,47 +49,61 @@ const Cart = () => {
     }
   };
 
+  const removeItemFromCart = (productId) => {
+    removeItem(productId);
+    setCart(getCart());
+  };
+
   return (
     <CartWrapper>
-      <CartContainer>
-        <CartHeader>
-          <Header>You have {`${cart.length}`} items in your cart...</Header>
-          <CartTotal>Total: ${getTotalPrice()}</CartTotal>
-        </CartHeader>
-        <OrderContainer>
-          {cart &&
-            cart.map((product, index) => (
-              <CartItemCard key={index}>
-                <CartItemImg
-                  src={`http://localhost:8000/${product.photo?.filePath}`}
-                  alt={product.name}
-                />
-                <CartDetailsContainer>
-                  <CartItemDetails>
-                    <CartItemName>{product.name}</CartItemName>
-                    <CartItemDescription>
-                      {product.description}
-                    </CartItemDescription>
-                    <CartItemPrice>${product.price}</CartItemPrice>
-                    <div>
-                      Qty:{" "}
-                      <CartItemQuantity
-                        type="number"
-                        value={product.count}
-                        onChange={onChange(product._id)}
-                      />
-                    </div>
-                  </CartItemDetails>
-                  <CartTotalContainer>
-                    <CartItemPrice>
-                      ${getTotalPriceForItem(product.price, product.count)}
-                    </CartItemPrice>
-                  </CartTotalContainer>
-                </CartDetailsContainer>
-              </CartItemCard>
-            ))}
-        </OrderContainer>
-      </CartContainer>
+      {cart.length > 0 ? (
+        <CartContainer>
+          <CartHeader>
+            <Header>You have {`${cart.length}`} items in your cart...</Header>
+            <CartTotal>Total: ${getTotalPrice()}</CartTotal>
+          </CartHeader>
+          <OrderContainer>
+            {cart &&
+              cart.map((product, index) => (
+                <CartItemCard key={index}>
+                  <CartItemImg
+                    src={`http://localhost:8000/${product.photo?.filePath}`}
+                    alt={product.name}
+                  />
+                  <CartDetailsContainer>
+                    <CartItemDetails>
+                      <CartItemName>{product.name}</CartItemName>
+                      <CartItemDescription>
+                        {product.description}
+                      </CartItemDescription>
+                      <CartItemPrice>${product.price}</CartItemPrice>
+                      <CartUpdateOptions>
+                        Qty:{"  "}
+                        <CartItemQuantity
+                          type="number"
+                          value={product.count}
+                          onChange={onChange(product._id)}
+                        />
+                        <RemoveButton
+                          onClick={() => removeItemFromCart(product._id)}
+                        >
+                          Remove
+                        </RemoveButton>
+                      </CartUpdateOptions>
+                    </CartItemDetails>
+                    <CartTotalContainer>
+                      <CartItemPrice>
+                        ${getTotalPriceForItem(product.price, product.count)}
+                      </CartItemPrice>
+                    </CartTotalContainer>
+                  </CartDetailsContainer>
+                </CartItemCard>
+              ))}
+          </OrderContainer>
+        </CartContainer>
+      ) : (
+        <h2>Your cart is empty</h2>
+      )}
     </CartWrapper>
   );
 };

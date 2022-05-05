@@ -87,7 +87,7 @@ export const CartItemQuantity = styled.input`
   width: 35px;
   height: 25px;
   font-size: 1rem;
-  margin: 5px 0;
+  margin: 2px 5px;
   border: 0.5px solid grey;
   border-radius: 5px;
   padding: 0 5px;
@@ -108,4 +108,20 @@ export const CartDetailsContainer = styled.div`
   flex-flow: row;
   width: 100%;
   justify-content: space-between;
+`;
+
+export const RemoveButton = styled.button`
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 2px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const CartUpdateOptions = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
 `;
