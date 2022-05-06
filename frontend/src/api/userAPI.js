@@ -40,3 +40,15 @@ export const changePassword = async (
     return error.response.data;
   }
 };
+
+export const deleteUser = async (id, token) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8000/api/user/delete/${id}`,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

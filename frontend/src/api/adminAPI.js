@@ -38,3 +38,53 @@ export const createProduct = async (product, id, token) => {
     return error.response.data;
   }
 };
+
+export const updateProduct = async (product, id, token, productId) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8000/api/product/update/${productId}/${id}`,
+      product,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const deleteProduct = async (id, token, productId) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8000/api/product/${productId}/${id}`,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const updateCategory = async (category, id, token, categoryId) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8000/api/category/update/${categoryId}/${id}`,
+      category,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export const deleteCategory = async (id, token, categoryId) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8000/api/category/${categoryId}/${id}`,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
