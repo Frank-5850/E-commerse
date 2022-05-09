@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { updateCategory } from "../../api/adminAPI";
+import { isAuthenticated } from "../../api/authAPI";
 import { showUpdateCategoryForm } from "../../redux/slices/formToggleSlice";
+import { setSuccess } from "../../redux/slices/successSlice";
 import {
   FormContainer,
   FormWrapper,
@@ -12,7 +15,7 @@ import {
   CloseButton,
 } from "../signin/forms.styles";
 
-const UpdateCategory = () => {
+const UpdateCategory = ({ categoryId }) => {
   const [values, setValues] = useState({
     newCategory: "",
     error: "",
@@ -20,6 +23,7 @@ const UpdateCategory = () => {
   const { newCategory, error } = values;
 
   const dispatch = useDispatch();
+  const { user, token } = isAuthenticated();
 
   const showError = () => (
     <div
@@ -44,7 +48,34 @@ const UpdateCategory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("hello");
+    try {
+      await setValues({
+        ...values,
+        error: false,
+      });
+      const data = await updateCategory(
+        newCategory,
+        user.id,
+        token,
+        categoryId
+      );
+      if (data.msg) {
+        setValues({
+          ...values,
+          error: data.msg,
+        });
+      } else {
+        await dispatch(
+          setSuccess({
+            success: true,
+            msg: "Category updated successfully",
+          })
+        );
+        await dispatch(showUpdateCategoryForm(false));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -42,6 +42,7 @@ module.exports = {
 
   updateCategory: async (req, res) => {
     try {
+      console.log(req.body);
       const { name } = req.body;
       if (!name) {
         return res.status(400).json({ msg: "All fields are required" });

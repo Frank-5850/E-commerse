@@ -16,6 +16,8 @@ import {
   CategoryLinkContainer,
 } from "./home.styles";
 import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
+import { setSuccess } from "../redux/slices/successSlice";
+import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -26,10 +28,14 @@ const Home = () => {
     show: false,
     product: {},
   });
+  const [categoryId, setCategoryId] = useState("");
 
   const dispatch = useDispatch();
 
-  const { signin } = useSelector((state) => state.formToggleSlice);
+  const { success, msg } = useSelector((state) => state.successSlice);
+  const { signin, updateCategory } = useSelector(
+    (state) => state.formToggleSlice
+  );
 
   const { user } = isAuthenticated();
 
@@ -48,7 +54,7 @@ const Home = () => {
 
   useEffect(() => {
     initialize();
-  }, [signin]);
+  }, [signin, updateCategory]);
 
   const getProductDetails = async (id) => {
     try {
@@ -74,8 +80,28 @@ const Home = () => {
     }
   };
 
+  const showSuccess = () => (
+    <div
+      style={{
+        display: success ? "" : "none",
+        color: "green",
+        fontSize: "1rem",
+        margin: "0.5rem",
+      }}
+    >
+      {msg}
+    </div>
+  );
+
+  const updateCategoryForm = (id) => {
+    setCategoryId(id);
+    dispatch(showUpdateCategoryForm(true));
+  };
+
   return (
-    <HomeWrapper>
+    <HomeWrapper onClick={() => dispatch(setSuccess({}))}>
+      {showSuccess()}
+      {updateCategory && <UpdateCategory categoryId={categoryId} />}
       <HomeContainer>
         <CategoryLinks>
           <CategoryLinksCard>
@@ -92,9 +118,7 @@ const Home = () => {
                       {category.name}
                     </CategoryLinksItems>
                     {user && user.role === 1 && (
-                      <button
-                        onClick={() => dispatch(showUpdateCategoryForm())}
-                      >
+                      <button onClick={() => updateCategoryForm(category._id)}>
                         Update
                       </button>
                     )}

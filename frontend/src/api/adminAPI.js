@@ -68,7 +68,7 @@ export const updateCategory = async (category, id, token, categoryId) => {
   try {
     const response = await axios.put(
       `http://localhost:8000/api/category/update/${categoryId}/${id}`,
-      category,
+      { name: category },
       { headers: { headers, Authorization: `${token}` } }
     );
     return response.data;
