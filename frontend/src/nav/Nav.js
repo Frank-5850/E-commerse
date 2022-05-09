@@ -1,15 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showSignin } from "../redux/slices/formToggleSlice";
 import { isAuthenticated, signout } from "./../api/authAPI";
 import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
+import Signin from "../user/signin/Signin";
+import Signup from "../user/signup/Signup";
 
 const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { signin, signup } = useSelector((state) => state.formToggleSlice);
   return (
     <NavWrapper>
+      {signin && <Signin />}
+      {signup && <Signup />}
       <NavGroup>
         <NavItem to="/">Home</NavItem>
       </NavGroup>

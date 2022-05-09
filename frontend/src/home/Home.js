@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Signin from "../user/signin/Signin";
-import Signup from "../user/signup/Signup";
 import ProductCard from "../productCard/ProductCard";
 import ProductDetailsModal from "../productDetailsModal/ProductDetailsModal";
 import { getProductDetail, getProducts } from "./../api/userAPI";
@@ -25,8 +22,6 @@ const Home = () => {
     show: false,
     product: {},
   });
-
-  const { signin, signup } = useSelector((state) => state.formToggleSlice);
 
   const initialize = async () => {
     try {
@@ -109,8 +104,6 @@ const Home = () => {
           setProductDetails={setProductDetails}
         />
       )}
-      {signin && <Signin />}
-      {signup && <Signup />}
     </HomeWrapper>
   );
 };
