@@ -16,8 +16,9 @@ import {
   CategoryLinkContainer,
 } from "./home.styles";
 import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
-import { setSuccess } from "../redux/slices/successSlice";
 import UpdateCategory from "./../user/updateCategory/UpdateCategory";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -29,11 +30,9 @@ const Home = () => {
     product: {},
   });
   const [categoryId, setCategoryId] = useState("");
-  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
-  const { success, msg } = useSelector((state) => state.successSlice);
   const { signin, updateCategory } = useSelector(
     (state) => state.formToggleSlice
   );
@@ -81,32 +80,6 @@ const Home = () => {
     }
   };
 
-  const showSuccess = () => (
-    <div
-      style={{
-        display: success ? "" : "none",
-        color: "green",
-        fontSize: "1rem",
-        margin: "0.5rem",
-      }}
-    >
-      {msg}
-    </div>
-  );
-
-  const showError = () => (
-    <div
-      style={{
-        display: error ? "" : "none",
-        color: "red",
-        fontSize: "0.8rem",
-        marginBottom: "0.5rem",
-      }}
-    >
-      {error}
-    </div>
-  );
-
   const updateCategoryForm = (id) => {
     setCategoryId(id);
     dispatch(showUpdateCategoryForm(true));
@@ -116,10 +89,10 @@ const Home = () => {
     try {
       const response = await deleteCategory(id, token, categoryId);
       if (response.err) {
-        setError(response.err);
+        toast.error(response.err, { autoClose: 2000 });
       } else {
         await initialize();
-        await dispatch(setSuccess({ success: true, msg: "Category deleted" }));
+        toast.success("Category deleted successfully", { autoClose: 2000 });
       }
     } catch (error) {
       console.log(error);
@@ -127,9 +100,7 @@ const Home = () => {
   };
 
   return (
-    <HomeWrapper onClick={() => dispatch(setSuccess({}))}>
-      {showError()}
-      {showSuccess()}
+    <HomeWrapper>
       {updateCategory && <UpdateCategory categoryId={categoryId} />}
       <HomeContainer>
         <CategoryLinks>
@@ -176,6 +147,7 @@ const Home = () => {
               ))
             : null}
         </ProductContainer>
+        <ToastContainer autoClose={2000} />
       </HomeContainer>
       {productDetails.show && (
         <ProductDetailsModal
