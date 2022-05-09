@@ -42,7 +42,6 @@ module.exports = {
 
   updateCategory: async (req, res) => {
     try {
-      console.log(req.body);
       const { name } = req.body;
       if (!name) {
         return res.status(400).json({ msg: "All fields are required" });
@@ -61,9 +60,8 @@ module.exports = {
       const category = req.category;
       const existingProducts = await Product.find({ category });
       if (existingProducts.length >= 1) {
-        console.log(existingProducts);
         return res.status(400).json({
-          msg: `Sorry. You cant delete ${category.name}. It has ${existingProducts.length} associated product(s).`,
+          err: `Sorry. You cant delete ${category.name}. It has ${existingProducts.length} associated product(s).`,
         });
       } else {
         await category.remove();

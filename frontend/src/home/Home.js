@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../productCard/ProductCard";
 import ProductDetailsModal from "../productDetailsModal/ProductDetailsModal";
 import { getProductDetail, getProducts } from "./../api/userAPI";
-import { getCategories } from "./../api/adminAPI";
+import { deleteCategory, getCategories } from "./../api/adminAPI";
 import { isAuthenticated } from "../api/authAPI";
 import {
   HomeWrapper,
@@ -29,6 +29,7 @@ const Home = () => {
     product: {},
   });
   const [categoryId, setCategoryId] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ const Home = () => {
     (state) => state.formToggleSlice
   );
 
-  const { user } = isAuthenticated();
+  const { user, token } = isAuthenticated();
 
   const initialize = async () => {
     try {
@@ -93,13 +94,41 @@ const Home = () => {
     </div>
   );
 
+  const showError = () => (
+    <div
+      style={{
+        display: error ? "" : "none",
+        color: "red",
+        fontSize: "0.8rem",
+        marginBottom: "0.5rem",
+      }}
+    >
+      {error}
+    </div>
+  );
+
   const updateCategoryForm = (id) => {
     setCategoryId(id);
     dispatch(showUpdateCategoryForm(true));
   };
 
+  const removeCategory = async (id, token, categoryId) => {
+    try {
+      const response = await deleteCategory(id, token, categoryId);
+      if (response.err) {
+        setError(response.err);
+      } else {
+        await initialize();
+        await dispatch(setSuccess({ success: true, msg: "Category deleted" }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <HomeWrapper onClick={() => dispatch(setSuccess({}))}>
+      {showError()}
       {showSuccess()}
       {updateCategory && <UpdateCategory categoryId={categoryId} />}
       <HomeContainer>
@@ -120,6 +149,15 @@ const Home = () => {
                     {user && user.role === 1 && (
                       <button onClick={() => updateCategoryForm(category._id)}>
                         Update
+                      </button>
+                    )}
+                    {user && user.role === 1 && (
+                      <button
+                        onClick={() =>
+                          removeCategory(user.id, token, category._id)
+                        }
+                      >
+                        Delete
                       </button>
                     )}
                   </CategoryLinkContainer>

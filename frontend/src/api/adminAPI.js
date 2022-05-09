@@ -80,7 +80,7 @@ export const updateCategory = async (category, id, token, categoryId) => {
 export const deleteCategory = async (id, token, categoryId) => {
   try {
     const response = await axios.delete(
-      `http://localhost:8000/api/category/${categoryId}/${id}`,
+      `http://localhost:8000/api/category/delete/${categoryId}/${id}`,
       { headers: { headers, Authorization: `${token}` } }
     );
     return response.data;
