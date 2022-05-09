@@ -101,7 +101,9 @@ const Home = () => {
 
   return (
     <HomeWrapper>
-      {updateCategory && <UpdateCategory categoryId={categoryId} />}
+      {updateCategory && (
+        <UpdateCategory categoryId={categoryId} toast={toast} />
+      )}
       <HomeContainer>
         <CategoryLinks>
           <CategoryLinksCard>

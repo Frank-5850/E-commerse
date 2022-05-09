@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showProductForm } from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 import { getCategories } from "../../api/adminAPI";
 import { isAuthenticated } from "../../api/authAPI";
 import { createProduct } from "../../api/adminAPI";
@@ -17,7 +16,7 @@ import {
   SelectInput,
 } from "../signin/forms.styles";
 
-const CreateProduct = () => {
+const CreateProduct = ({ toast }) => {
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -76,13 +75,8 @@ const CreateProduct = () => {
           error: data.msg,
         });
       } else {
-        await dispatch(
-          setSuccess({
-            success: true,
-            msg: "Product created successfully",
-          })
-        );
         await dispatch(showProductForm(false));
+        toast.success("Product added successfully");
       }
     } catch (error) {
       console.log(error);
@@ -101,6 +95,7 @@ const CreateProduct = () => {
       {error}
     </div>
   );
+
   return (
     <FormWrapper onClick={() => dispatch(showProductForm())}>
       <FormContainer onClick={(e) => e.stopPropagation()}>

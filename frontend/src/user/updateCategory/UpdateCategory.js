@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { updateCategory } from "../../api/adminAPI";
 import { isAuthenticated } from "../../api/authAPI";
 import { showUpdateCategoryForm } from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 import {
   FormContainer,
   FormWrapper,
@@ -15,7 +14,7 @@ import {
   CloseButton,
 } from "../signin/forms.styles";
 
-const UpdateCategory = ({ categoryId }) => {
+const UpdateCategory = ({ categoryId, toast }) => {
   const [values, setValues] = useState({
     newCategory: "",
     error: "",
@@ -65,13 +64,8 @@ const UpdateCategory = ({ categoryId }) => {
           error: data.msg,
         });
       } else {
-        await dispatch(
-          setSuccess({
-            success: true,
-            msg: "Category updated successfully",
-          })
-        );
         await dispatch(showUpdateCategoryForm(false));
+        toast.success("Category updated successfully");
       }
     } catch (error) {
       console.log(error);

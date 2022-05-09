@@ -27,18 +27,9 @@ const Signup = () => {
     password: "",
     passwordCheck: "",
     error: "",
-    success: false,
   });
 
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordCheck,
-    success,
-    error,
-  } = values;
+  const { firstName, lastName, email, password, passwordCheck, error } = values;
 
   const dispatch = useDispatch();
 
@@ -65,13 +56,11 @@ const Signup = () => {
         setValues({
           ...values,
           error: data.msg,
-          success: false,
         });
       } else {
         setValues({
           ...values,
           error: false,
-          success: true,
         });
       }
     } catch (error) {
@@ -89,19 +78,6 @@ const Signup = () => {
       }}
     >
       {error}
-    </div>
-  );
-
-  const showSuccess = () => (
-    <div
-      style={{
-        display: success ? "" : "none",
-        color: "green",
-        fontSize: "0.8rem",
-        marginBottom: "0.5rem",
-      }}
-    >
-      New account created successfully!
     </div>
   );
 
@@ -151,7 +127,6 @@ const Signup = () => {
           <ConfirmButton onClick={(e) => handleSubmit(e)}>
             Sign Up
           </ConfirmButton>
-          {showSuccess()}
           {showError()}
           <SignupComponent>
             <SignupText>Already a member?</SignupText>

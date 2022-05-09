@@ -1,8 +1,6 @@
 import React from "react";
 import { isAuthenticated } from "../../api/authAPI";
-import { changePassword } from "./../../api/userAPI";
 import { useSelector, useDispatch } from "react-redux";
-import { setSuccess } from "../../redux/slices/successSlice";
 import UpdatePassword from "../updatePassword/UpdatePassword";
 import { showChangePasswordForm } from "../../redux/slices/formToggleSlice";
 import {
@@ -16,10 +14,11 @@ import {
   DashboardName,
   DashboardText,
 } from "../adminDashboard/dashboard.styles";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserDashboard = () => {
   const { changePassword } = useSelector((state) => state.formToggleSlice);
-  const { success, msg } = useSelector((state) => state.successSlice);
   const { user } = isAuthenticated();
   const dispatch = useDispatch();
 
@@ -28,23 +27,9 @@ const UserDashboard = () => {
     year: "numeric",
   });
 
-  const showSuccess = () => (
-    <div
-      style={{
-        display: success ? "" : "none",
-        color: "green",
-        fontSize: "1rem",
-        margin: "0.5rem",
-      }}
-    >
-      {msg}
-    </div>
-  );
-
   return (
-    <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
-      {changePassword && <UpdatePassword />}
-      {showSuccess()}
+    <DashboardWrapper>
+      {changePassword && <UpdatePassword toast={toast} />}
       <DashboardContainer>
         <DashboardLinks>
           <DashboardCard>
@@ -66,6 +51,7 @@ const UserDashboard = () => {
             <DashboardText>Member since: {date}</DashboardText>
           </DashboardCard>
         </DashboardInfo>
+        <ToastContainer />
       </DashboardContainer>
     </DashboardWrapper>
   );

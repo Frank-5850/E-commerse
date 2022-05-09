@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { isAuthenticated } from "../../api/authAPI";
 import { changePassword } from "../../api/userAPI";
 import { showChangePasswordForm } from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 import {
   CloseButton,
   FormContainer,
@@ -15,7 +14,7 @@ import {
   ConfirmButton,
 } from "../signin/forms.styles";
 
-const UpdatePassword = () => {
+const UpdatePassword = ({ toast }) => {
   const [values, setValues] = useState({
     oldPassword: "",
     newPassword: "",
@@ -55,13 +54,8 @@ const UpdatePassword = () => {
           error: data.msg,
         });
       } else {
-        await dispatch(
-          setSuccess({
-            success: true,
-            msg: data.success,
-          })
-        );
         await dispatch(showChangePasswordForm(false));
+        toast.success("Password changed successfully");
       }
     } catch (error) {
       await setValues({

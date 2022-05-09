@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showCategoryForm } from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 import { createCategory } from "../../api/adminAPI";
 import { isAuthenticated } from "../../api/authAPI";
 import {
@@ -15,7 +14,7 @@ import {
   CloseButton,
 } from "../signin/forms.styles";
 
-const CreateCategory = () => {
+const CreateCategory = ({ toast }) => {
   const [values, setValues] = useState({
     category: "",
     error: "",
@@ -61,13 +60,8 @@ const CreateCategory = () => {
           error: data.msg,
         });
       } else {
-        await dispatch(
-          setSuccess({
-            success: true,
-            msg: "Category added successfully",
-          })
-        );
         await dispatch(showCategoryForm(false));
+        toast.success("Category added successfully");
       }
     } catch (error) {
       console.log("error", error);

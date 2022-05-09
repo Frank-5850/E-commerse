@@ -5,7 +5,6 @@ import {
   showChangePasswordForm,
   showProductForm,
 } from "../../redux/slices/formToggleSlice";
-import { setSuccess } from "../../redux/slices/successSlice";
 import { isAuthenticated } from "../../api/authAPI";
 import CreateCategory from "../createCategory/CreateCategory";
 import CreateProduct from "../createProduct/CreateProduct";
@@ -21,12 +20,13 @@ import {
   DashboardText,
 } from "./dashboard.styles";
 import UpdatePassword from "../updatePassword/UpdatePassword";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminDashboard = () => {
   const { category, product, changePassword } = useSelector(
     (state) => state.formToggleSlice
   );
-  const { success, msg } = useSelector((state) => state.successSlice);
   const dispatch = useDispatch();
 
   const { user } = isAuthenticated();
@@ -39,25 +39,11 @@ const AdminDashboard = () => {
     return date;
   };
 
-  const showSuccess = () => (
-    <div
-      style={{
-        display: success ? "" : "none",
-        color: "green",
-        fontSize: "1rem",
-        margin: "0.5rem",
-      }}
-    >
-      {msg}
-    </div>
-  );
-
   return (
-    <DashboardWrapper onClick={() => dispatch(setSuccess({}))}>
-      {category && <CreateCategory />}
-      {product && <CreateProduct />}
-      {changePassword && <UpdatePassword />}
-      {showSuccess()}
+    <DashboardWrapper>
+      {category && <CreateCategory toast={toast} />}
+      {product && <CreateProduct toast={toast} />}
+      {changePassword && <UpdatePassword toast={toast} />}
       <DashboardContainer>
         <DashboardLinks>
           <DashboardCard>
@@ -87,6 +73,7 @@ const AdminDashboard = () => {
             <DashboardText>Member since: {memberSince()}</DashboardText>
           </DashboardCard>
         </DashboardInfo>
+        <ToastContainer />
       </DashboardContainer>
     </DashboardWrapper>
   );
