@@ -6,16 +6,20 @@ import { isAuthenticated, signout } from "./../api/authAPI";
 import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
 import Signin from "../user/signin/Signin";
 import Signup from "../user/signup/Signup";
+import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 
 const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { signin, signup } = useSelector((state) => state.formToggleSlice);
+  const { signin, signup, updateCategory } = useSelector(
+    (state) => state.formToggleSlice
+  );
   return (
     <NavWrapper>
       {signin && <Signin />}
       {signup && <Signup />}
+      {updateCategory && <UpdateCategory />}
       <NavGroup>
         <NavItem to="/">Home</NavItem>
       </NavGroup>

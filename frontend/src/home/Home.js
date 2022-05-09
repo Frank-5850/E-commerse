@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../productCard/ProductCard";
 import ProductDetailsModal from "../productDetailsModal/ProductDetailsModal";
 import { getProductDetail, getProducts } from "./../api/userAPI";
 import { getCategories } from "./../api/adminAPI";
+import { isAuthenticated } from "../api/authAPI";
 import {
   HomeWrapper,
   ProductContainer,
@@ -11,7 +13,9 @@ import {
   CategoryLinksCard,
   CategoryLinksItems,
   CategoryLinksHeader,
+  CategoryLinkContainer,
 } from "./home.styles";
+import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -22,6 +26,12 @@ const Home = () => {
     show: false,
     product: {},
   });
+
+  const dispatch = useDispatch();
+
+  const { signin } = useSelector((state) => state.formToggleSlice);
+
+  const { user } = isAuthenticated();
 
   const initialize = async () => {
     try {
@@ -38,7 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     initialize();
-  }, []);
+  }, [signin]);
 
   const getProductDetails = async (id) => {
     try {
@@ -75,12 +85,20 @@ const Home = () => {
             </CategoryLinksItems>
             {categories
               ? categories.map((category) => (
-                  <CategoryLinksItems
-                    key={category._id}
-                    onClick={() => sortProductsByCategory(category.name)}
-                  >
-                    {category.name}
-                  </CategoryLinksItems>
+                  <CategoryLinkContainer key={category._id}>
+                    <CategoryLinksItems
+                      onClick={() => sortProductsByCategory(category.name)}
+                    >
+                      {category.name}
+                    </CategoryLinksItems>
+                    {user && user.role === 1 && (
+                      <button
+                        onClick={() => dispatch(showUpdateCategoryForm())}
+                      >
+                        Update
+                      </button>
+                    )}
+                  </CategoryLinkContainer>
                 ))
               : null}
           </CategoryLinksCard>

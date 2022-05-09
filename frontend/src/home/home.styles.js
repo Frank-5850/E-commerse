@@ -27,9 +27,6 @@ export const CategoryLinks = styled.div`
 export const ProductContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
-  // align-items: center;
-  // padding: 10px;
-  // margin: 10px;
   width: 60%;
 `;
 
@@ -63,4 +60,13 @@ export const CategoryLinksItems = styled.div`
     background-color: black;
     color: white;
   }
+`;
+
+export const CategoryLinkContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  border-box: box-sizing;
 `;
