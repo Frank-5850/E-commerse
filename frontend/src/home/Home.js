@@ -15,10 +15,14 @@ import {
   CategoryLinksHeader,
   CategoryLinkContainer,
 } from "./home.styles";
-import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
+import {
+  showUpdateCategoryForm,
+  showUpdateProductForm,
+} from "../redux/slices/formToggleSlice";
 import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UpdateProduct from "../user/updateProduct/UpdateProduct";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -33,7 +37,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { signin, updateCategory } = useSelector(
+  const { signin, updateCategory, updateProduct } = useSelector(
     (state) => state.formToggleSlice
   );
 
@@ -104,6 +108,7 @@ const Home = () => {
       {updateCategory && (
         <UpdateCategory categoryId={categoryId} toast={toast} />
       )}
+      {updateProduct && <UpdateProduct />}
       <HomeContainer>
         <CategoryLinks>
           <CategoryLinksCard>
@@ -141,11 +146,23 @@ const Home = () => {
         <ProductContainer>
           {products
             ? products.map((product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                  getProductDetails={getProductDetails}
-                />
+                <>
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                    getProductDetails={getProductDetails}
+                  />
+                  {user && user.role === 1 && (
+                    <button onClick={() => dispatch(showUpdateProductForm())}>
+                      Update
+                    </button>
+                  )}
+                  {user && user.role === 1 && (
+                    <button onClick={() => console.log("delete")}>
+                      Delete
+                    </button>
+                  )}
+                </>
               ))
             : null}
         </ProductContainer>
