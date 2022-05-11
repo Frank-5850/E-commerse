@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showUpdateProductForm } from "../../redux/slices/formToggleSlice";
-import { getCategories } from "../../api/adminAPI";
+import { getCategories, updateProduct } from "../../api/adminAPI";
+import { isAuthenticated } from "../../api/authAPI";
 import {
   FormContainer,
   FormWrapper,
@@ -14,7 +15,7 @@ import {
   SelectInput,
 } from "../signin/forms.styles";
 
-const UpdateProduct = () => {
+const UpdateProduct = ({ productId, toast }) => {
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -30,6 +31,8 @@ const UpdateProduct = () => {
     values;
 
   const dispatch = useDispatch();
+
+  const { user, token } = isAuthenticated();
 
   const initialize = async () => {
     try {
@@ -59,7 +62,24 @@ const UpdateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("hello");
+    try {
+      await setValues({
+        ...values,
+        error: false,
+      });
+      const data = await updateProduct(formData, user.id, token, productId);
+      if (data.msg) {
+        setValues({
+          ...values,
+          error: data.msg,
+        });
+      } else {
+        await dispatch(showUpdateProductForm(false));
+        toast.success("Product updated successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const showError = () => (
@@ -126,7 +146,7 @@ const UpdateProduct = () => {
             onChange={handleChange("photo")}
             type="file"
           />
-          <ConfirmButton onClick={(e) => handleSubmit(e)}>Create</ConfirmButton>
+          <ConfirmButton onClick={(e) => handleSubmit(e)}>Update</ConfirmButton>
           {showError()}
         </Form>
       </FormContainer>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   ProductCardContainer,
   ProductTitle,
@@ -10,11 +11,22 @@ import {
   ProductFooter,
 } from "../productCard/productCard.styles";
 import { addItem } from "../cart/cartHelper";
+import { isAuthenticated } from "../api/authAPI";
+import { showUpdateProductForm } from "../redux/slices/formToggleSlice";
 
-const ProductCard = ({ product, getProductDetails }) => {
+const ProductCard = ({ product, getProductDetails, setProductId }) => {
   const addToCart = () => {
     addItem(product);
   };
+  const dispatch = useDispatch();
+
+  const { user } = isAuthenticated();
+
+  const updateProductForm = (id) => {
+    dispatch(showUpdateProductForm());
+    setProductId(id);
+  };
+
   return (
     <ProductCardContainer>
       <ProductImageContainer onClick={() => getProductDetails(product._id)}>
@@ -32,6 +44,14 @@ const ProductCard = ({ product, getProductDetails }) => {
       <ProductFooter>
         <ProductPrice>${product.price}</ProductPrice>
         <AddToCart onClick={() => addToCart()}>Add to cart</AddToCart>
+      </ProductFooter>
+      <ProductFooter>
+        {user && user.role === 1 && (
+          <button onClick={() => updateProductForm(product._id)}>Update</button>
+        )}
+        {user && user.role === 1 && (
+          <button onClick={() => console.log("delete")}>Delete</button>
+        )}
       </ProductFooter>
     </ProductCardContainer>
   );

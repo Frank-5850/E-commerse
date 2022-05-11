@@ -15,10 +15,7 @@ import {
   CategoryLinksHeader,
   CategoryLinkContainer,
 } from "./home.styles";
-import {
-  showUpdateCategoryForm,
-  showUpdateProductForm,
-} from "../redux/slices/formToggleSlice";
+import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
 import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +31,7 @@ const Home = () => {
     product: {},
   });
   const [categoryId, setCategoryId] = useState("");
+  const [productId, setProductId] = useState("");
 
   const dispatch = useDispatch();
 
@@ -108,7 +106,7 @@ const Home = () => {
       {updateCategory && (
         <UpdateCategory categoryId={categoryId} toast={toast} />
       )}
-      {updateProduct && <UpdateProduct />}
+      {updateProduct && <UpdateProduct productId={productId} toast={toast} />}
       <HomeContainer>
         <CategoryLinks>
           <CategoryLinksCard>
@@ -146,23 +144,12 @@ const Home = () => {
         <ProductContainer>
           {products
             ? products.map((product) => (
-                <>
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    getProductDetails={getProductDetails}
-                  />
-                  {user && user.role === 1 && (
-                    <button onClick={() => dispatch(showUpdateProductForm())}>
-                      Update
-                    </button>
-                  )}
-                  {user && user.role === 1 && (
-                    <button onClick={() => console.log("delete")}>
-                      Delete
-                    </button>
-                  )}
-                </>
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  getProductDetails={getProductDetails}
+                  setProductId={setProductId}
+                />
               ))
             : null}
         </ProductContainer>
