@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavItem } from "../nav/nav.styles";
 import {
   CartWrapper,
   CartContainer,
@@ -99,6 +100,7 @@ const Cart = () => {
                   </CartDetailsContainer>
                 </CartItemCard>
               ))}
+            <NavItem to="/checkout">Checkout</NavItem>
           </OrderContainer>
         </CartContainer>
       ) : (
