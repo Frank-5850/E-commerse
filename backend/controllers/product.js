@@ -63,10 +63,8 @@ module.exports = {
       const product = req.product;
       if (req.file) {
         photo = req.file;
-        await unlinkAsync(req.product.photo.filePath);
       } else {
         photo = product.photo;
-        await unlinkAsync(req.product.photo.filePath);
       }
       const { name, description, price, category, quantity } = req.body;
       if (
@@ -79,6 +77,8 @@ module.exports = {
       ) {
         return res.status(400).json({ msg: "All fields are required" });
       }
+      await unlinkAsync(req.product.photo.filePath);
+
       product.name = name;
       product.description = description;
       product.price = price;
