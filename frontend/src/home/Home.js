@@ -56,7 +56,7 @@ const Home = () => {
 
   useEffect(() => {
     initialize();
-  }, [signin, updateCategory]);
+  }, [signin, updateCategory, updateProduct]);
 
   const getProductDetails = async (id) => {
     try {
