@@ -46,6 +46,7 @@ export const CategoryLinksCard = styled.div`
   flex-flow: column;
   align-items: center;
   padding: 10px;
+  min-width: 60%;
 `;
 
 export const CategoryLinksItems = styled.h4`
@@ -57,9 +58,9 @@ export const CategoryLinksItems = styled.h4`
   border-box: box-sizing;
   cursor: pointer;
   margin: 0;
+  min-width: 100%;
   &:hover {
-    background-color: black;
-    color: white;
+    text-decoration: underline;
   }
 `;
 
@@ -70,6 +71,16 @@ export const CategoryLinkContainer = styled.div`
   align-items: center;
   padding: 10px 0;
   border-box: box-sizing;
+  min-width: 100%;
+`;
+
+export const CategoryIcons = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  height: 100%;
 `;
 
 export const UpdateIcon = styled(BsRecycle)`

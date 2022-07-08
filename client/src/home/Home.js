@@ -19,6 +19,7 @@ import {
   CategoryLinksCard,
   CategoryLinksItems,
   CategoryLinkContainer,
+  CategoryIcons,
   UpdateIcon,
   DeleteIcon,
 } from "./home.styles";
@@ -27,6 +28,7 @@ import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UpdateProduct from "../user/updateProduct/UpdateProduct";
+import ReactTooltip from "react-tooltip";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -135,6 +137,7 @@ const Home = () => {
           <CategoryLinksCard>
             <CategoryLinksItems
               onClick={() => sortProductsByCategory("All Products")}
+              style={{ marginRight: user && user.role === 1 && "16px" }}
             >
               All Products
             </CategoryLinksItems>
@@ -146,18 +149,40 @@ const Home = () => {
                     >
                       {category.name}
                     </CategoryLinksItems>
-                    {user && user.role === 1 && (
-                      <UpdateIcon
-                        onClick={() => updateCategoryForm(category._id)}
-                      />
-                    )}
-                    {user && user.role === 1 && (
-                      <DeleteIcon
-                        onClick={() =>
-                          removeCategory(user.id, token, category._id)
-                        }
-                      />
-                    )}
+                    <CategoryIcons>
+                      {user && user.role === 1 && (
+                        <>
+                          <DeleteIcon
+                            data-tip
+                            data-for="deleteCategoryTip"
+                            data-offset="{'bottom': 6}"
+                            onClick={() =>
+                              removeCategory(user.id, token, category._id)
+                            }
+                          />
+                          <ReactTooltip
+                            id="deleteCategoryTip"
+                            place="top"
+                            effect="solid"
+                          >
+                            Delete category
+                          </ReactTooltip>
+                          <UpdateIcon
+                            data-tip
+                            data-for="updateCategoryTip"
+                            data-offset="{'bottom': 6}"
+                            onClick={() => updateCategoryForm(category._id)}
+                          />
+                          <ReactTooltip
+                            id="updateCategoryTip"
+                            place="top"
+                            effect="solid"
+                          >
+                            Update category
+                          </ReactTooltip>
+                        </>
+                      )}
+                    </CategoryIcons>
                   </CategoryLinkContainer>
                 ))
               : null}
