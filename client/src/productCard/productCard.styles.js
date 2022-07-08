@@ -12,7 +12,7 @@ export const ProductCardContainer = styled.div`
   &:hover {
     border: 1px solid grey;
     box-shadow: 0px 0px 10px grey;
-    text-decoration: underline;
+    border-radius: 10px;
   }
 `;
 
@@ -50,11 +50,24 @@ export const ProductFooter = styled.div`
   padding: 5px;
 `;
 
+export const ProductIcons = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px;
+  height: 30px;
+`;
+
 export const AddToCart = styled.button`
   font-size: 1rem;
   padding: 5px;
   margin: 0;
   border: none;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
   background-color: #f5f5f5;
   cursor: pointer;
   &:hover {

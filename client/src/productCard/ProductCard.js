@@ -9,11 +9,18 @@ import {
   ProductImageContainer,
   AddToCart,
   ProductFooter,
+  ProductIcons,
 } from "../productCard/productCard.styles";
+import {
+  UpdateIcon,
+  DeleteIcon,
+  InStockIcon,
+  CancelIcon,
+} from "../home/home.styles";
 import { addItem } from "../cart/cartHelper";
 import { isAuthenticated } from "../api/authAPI";
 import { showUpdateProductForm } from "../redux/slices/formToggleSlice";
-import { BsTrash, BsRecycle } from "react-icons/bs";
+import ReactTooltip from "react-tooltip";
 
 const ProductCard = ({
   product,
@@ -49,16 +56,105 @@ const ProductCard = ({
       </ProductDescription>
       <ProductFooter>
         <ProductPrice>${product.price}</ProductPrice>
-        <AddToCart onClick={() => addToCart()}>Add to cart</AddToCart>
+        <AddToCart onClick={() => addToCart()}>
+          {product.quantity >= 1 && user && user.role === 0 && (
+            <>
+              <InStockIcon
+                data-tip
+                data-for="inStockTip"
+                data-offset="{'bottom': 6}"
+              />
+              <ReactTooltip
+                delayShow={100}
+                delayHide={100}
+                id="inStockTip"
+                place="top"
+                effect="solid"
+                backgroundColor="green"
+              >
+                In Stock
+              </ReactTooltip>
+            </>
+          )}
+          Add to cart
+        </AddToCart>
       </ProductFooter>
-      <ProductFooter>
-        {user && user.role === 1 && (
-          <BsRecycle onClick={() => updateProductForm(product._id)} />
-        )}
-        {user && user.role === 1 && (
-          <BsTrash onClick={() => removeProduct(user.id, token, product._id)} />
-        )}
-      </ProductFooter>
+      {user && user.role === 1 && (
+        <ProductIcons>
+          <>
+            <UpdateIcon
+              data-tip
+              data-for="updateProductTip"
+              data-offset="{'bottom': 6}"
+              onClick={() => updateProductForm(product._id)}
+            />
+            <ReactTooltip
+              delayShow={100}
+              delayHide={100}
+              id="updateProductTip"
+              place="top"
+              effect="solid"
+            >
+              Update product
+            </ReactTooltip>
+          </>
+
+          <>
+            <DeleteIcon
+              data-tip
+              data-for="deleteProductTip"
+              data-offset="{'bottom': 6}"
+              onClick={() => removeProduct(user.id, token, product._id)}
+            />
+            <ReactTooltip
+              delayShow={100}
+              delayHide={100}
+              id="deleteProductTip"
+              place="top"
+              effect="solid"
+            >
+              Update product
+            </ReactTooltip>
+          </>
+          {product.quantity >= 1 ? (
+            <>
+              <InStockIcon
+                data-tip
+                data-for="inStockTip"
+                data-offset="{'bottom': 6}"
+              />
+              <ReactTooltip
+                delayShow={100}
+                delayHide={100}
+                id="inStockTip"
+                place="top"
+                effect="solid"
+                backgroundColor="green"
+              >
+                In Stock
+              </ReactTooltip>
+            </>
+          ) : (
+            <>
+              <CancelIcon
+                data-tip
+                data-for="cancelTip"
+                data-offset="{'bottom': 6}"
+              />
+              <ReactTooltip
+                delayShow={100}
+                delayHide={100}
+                id="cancelTip"
+                place="top"
+                effect="solid"
+                backgroundColor="red"
+              >
+                Out of Stock
+              </ReactTooltip>
+            </>
+          )}
+        </ProductIcons>
+      )}
     </ProductCardContainer>
   );
 };

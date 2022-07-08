@@ -19,13 +19,14 @@ import {
   CategoryLinksCard,
   CategoryLinksItems,
   CategoryLinkContainer,
+  UpdateIcon,
+  DeleteIcon,
 } from "./home.styles";
 import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
 import UpdateCategory from "./../user/updateCategory/UpdateCategory";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UpdateProduct from "../user/updateProduct/UpdateProduct";
-import { BsTrash, BsRecycle } from "react-icons/bs";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -146,12 +147,12 @@ const Home = () => {
                       {category.name}
                     </CategoryLinksItems>
                     {user && user.role === 1 && (
-                      <BsRecycle
+                      <UpdateIcon
                         onClick={() => updateCategoryForm(category._id)}
                       />
                     )}
                     {user && user.role === 1 && (
-                      <BsTrash
+                      <DeleteIcon
                         onClick={() =>
                           removeCategory(user.id, token, category._id)
                         }

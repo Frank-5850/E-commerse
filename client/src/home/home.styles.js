@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BsTrash, BsRecycle, BsCheckLg, BsXCircle } from "react-icons/bs";
 
 export const HomeWrapper = styled.div`
   display: flex;
@@ -69,4 +70,47 @@ export const CategoryLinkContainer = styled.div`
   align-items: center;
   padding: 10px 0;
   border-box: box-sizing;
+`;
+
+export const UpdateIcon = styled(BsRecycle)`
+color: green;
+cursor: pointer;
+margin: 0px 5px;
+padding: 2px;
+&:hover {
+    border: 1px solid grey;
+    border-radius: 5px;
+`;
+
+export const DeleteIcon = styled(BsTrash)`
+  color: red;
+  cursor: pointer;
+  margin: 0px 5px;
+  padding: 2px;
+  &:hover {
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+`;
+
+export const InStockIcon = styled(BsCheckLg)`
+  color: green;
+  cursor: pointer;
+  margin: 0px 5px;
+  padding: 2px;
+  &:hover {
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+`;
+
+export const CancelIcon = styled(BsXCircle)`
+  color: red;
+  cursor: pointer;
+  margin: 0px 5px;
+  padding: 2px;
+  &:hover {
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
 `;
