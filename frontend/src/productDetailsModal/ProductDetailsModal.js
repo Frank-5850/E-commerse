@@ -42,7 +42,9 @@ const ProductDetailsModal = ({
           <ProductDetailGroup>
             <ProductTitle>{product.name}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
-            <ProductPrice>${product.price}</ProductPrice>
+            <ProductPrice style={{ padding: "5px" }}>
+              ${product.price}
+            </ProductPrice>
           </ProductDetailGroup>
           <ProductDetailGroup>
             <button onClick={() => addToCart()}>Add to Cart</button>

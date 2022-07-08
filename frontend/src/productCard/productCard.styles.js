@@ -4,8 +4,16 @@ export const ProductCardContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: center;
-  border: 1px solid black;
   cursor: pointer;
+  height: 400px;
+  width: 300px;
+  margin: 20px 0 0;
+  padding: 8px;
+  &:hover {
+    border: 1px solid grey;
+    box-shadow: 0px 0px 10px grey;
+    text-decoration: underline;
+  }
 `;
 
 export const ProductTitle = styled.h1`
@@ -17,7 +25,7 @@ export const ProductTitle = styled.h1`
 
 export const ProductImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: contain;
 `;
 

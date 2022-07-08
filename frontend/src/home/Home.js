@@ -11,12 +11,13 @@ import {
 import { isAuthenticated } from "../api/authAPI";
 import {
   HomeWrapper,
+  ProductWrapper,
   ProductContainer,
   CategoryLinks,
   HomeContainer,
+  ProductCategoryTitle,
   CategoryLinksCard,
   CategoryLinksItems,
-  CategoryLinksHeader,
   CategoryLinkContainer,
 } from "./home.styles";
 import { showUpdateCategoryForm } from "../redux/slices/formToggleSlice";
@@ -36,6 +37,7 @@ const Home = () => {
   });
   const [categoryId, setCategoryId] = useState("");
   const [productId, setProductId] = useState("");
+  const [categoryName, setCategoryName] = useState("");
 
   const dispatch = useDispatch();
 
@@ -77,10 +79,11 @@ const Home = () => {
       console.log(category);
       const productArray = await getProducts();
       const sortedProducts =
-        category !== "all"
+        category !== "All Products"
           ? productArray.filter((product) => product.category.name === category)
           : productArray;
       setData({ ...data, products: sortedProducts });
+      setCategoryName(category);
     } catch (error) {
       console.log(error);
     }
@@ -128,9 +131,10 @@ const Home = () => {
       <HomeContainer>
         <CategoryLinks>
           <CategoryLinksCard>
-            <CategoryLinksHeader>Categories</CategoryLinksHeader>
-            <CategoryLinksItems onClick={() => sortProductsByCategory("all")}>
-              All
+            <CategoryLinksItems
+              onClick={() => sortProductsByCategory("All Products")}
+            >
+              All Products
             </CategoryLinksItems>
             {categories
               ? categories.map((category) => (
@@ -159,19 +163,24 @@ const Home = () => {
               : null}
           </CategoryLinksCard>
         </CategoryLinks>
-        <ProductContainer>
-          {products
-            ? products.map((product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                  getProductDetails={getProductDetails}
-                  setProductId={setProductId}
-                  removeProduct={removeProduct}
-                />
-              ))
-            : null}
-        </ProductContainer>
+        <ProductWrapper>
+          <ProductCategoryTitle>
+            {categoryName ? categoryName : "All Products"}
+          </ProductCategoryTitle>
+          <ProductContainer>
+            {products
+              ? products.map((product) => (
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                    getProductDetails={getProductDetails}
+                    setProductId={setProductId}
+                    removeProduct={removeProduct}
+                  />
+                ))
+              : null}
+          </ProductContainer>
+        </ProductWrapper>
         <ToastContainer autoClose={2000} />
       </HomeContainer>
       {productDetails.show && (
