@@ -13,6 +13,7 @@ import {
 import { addItem } from "../cart/cartHelper";
 import { isAuthenticated } from "../api/authAPI";
 import { showUpdateProductForm } from "../redux/slices/formToggleSlice";
+import { BsTrash, BsRecycle } from "react-icons/bs";
 
 const ProductCard = ({
   product,
@@ -52,12 +53,10 @@ const ProductCard = ({
       </ProductFooter>
       <ProductFooter>
         {user && user.role === 1 && (
-          <button onClick={() => updateProductForm(product._id)}>Update</button>
+          <BsRecycle onClick={() => updateProductForm(product._id)} />
         )}
         {user && user.role === 1 && (
-          <button onClick={() => removeProduct(user.id, token, product._id)}>
-            Delete
-          </button>
+          <BsTrash onClick={() => removeProduct(user.id, token, product._id)} />
         )}
       </ProductFooter>
     </ProductCardContainer>
