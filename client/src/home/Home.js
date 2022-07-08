@@ -137,7 +137,7 @@ const Home = () => {
           <CategoryLinksCard>
             <CategoryLinksItems
               onClick={() => sortProductsByCategory("All Products")}
-              style={{ marginRight: user && user.role === 1 && "16px" }}
+              style={{ marginRight: user && user.role === 1 && "20px" }}
             >
               All Products
             </CategoryLinksItems>
@@ -156,6 +156,7 @@ const Home = () => {
                             data-tip
                             data-for="deleteCategoryTip"
                             data-offset="{'bottom': 6}"
+                            size="20px"
                             onClick={() =>
                               removeCategory(user.id, token, category._id)
                             }
@@ -171,6 +172,7 @@ const Home = () => {
                             data-tip
                             data-for="updateCategoryTip"
                             data-offset="{'bottom': 6}"
+                            size="20px"
                             onClick={() => updateCategoryForm(category._id)}
                           />
                           <ReactTooltip

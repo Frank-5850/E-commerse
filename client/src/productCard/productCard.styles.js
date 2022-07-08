@@ -7,7 +7,7 @@ export const ProductCardContainer = styled.div`
   cursor: pointer;
   height: 400px;
   width: 300px;
-  margin: 20px 0 0;
+  margin: 20px 30px;
   padding: 8px;
   &:hover {
     border: 1px solid grey;

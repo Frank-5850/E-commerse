@@ -37,7 +37,6 @@ export const ProductWrapper = styled.div`
 export const ProductContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   width: 100%;
 `;
 
@@ -86,8 +85,9 @@ export const CategoryIcons = styled.div`
 export const UpdateIcon = styled(BsRecycle)`
 color: green;
 cursor: pointer;
-margin: 0px 5px;
+margin: 3px 5px;
 padding: 2px;
+font-size: 1.3rem;
 &:hover {
     border: 1px solid grey;
     border-radius: 5px;
@@ -96,8 +96,9 @@ padding: 2px;
 export const DeleteIcon = styled(BsTrash)`
   color: red;
   cursor: pointer;
-  margin: 0px 5px;
+  margin: 3px 5px;
   padding: 2px;
+  font-size: 1.3rem;
   &:hover {
     border: 1px solid grey;
     border-radius: 5px;
@@ -109,6 +110,7 @@ export const InStockIcon = styled(BsCheckLg)`
   cursor: pointer;
   margin: 0px 5px;
   padding: 2px;
+  font-size: 1.3rem;
   &:hover {
     border: 1px solid grey;
     border-radius: 5px;
@@ -120,6 +122,7 @@ export const CancelIcon = styled(BsXCircle)`
   cursor: pointer;
   margin: 0px 5px;
   padding: 2px;
+  font-size: 1.3rem;
   &:hover {
     border: 1px solid grey;
     border-radius: 5px;
