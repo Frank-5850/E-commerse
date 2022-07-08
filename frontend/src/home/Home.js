@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../productCard/ProductCard";
 import ProductDetailsModal from "../productDetailsModal/ProductDetailsModal";
 import { getProductDetail, getProducts } from "./../api/userAPI";
-import { deleteCategory, getCategories } from "./../api/adminAPI";
+import {
+  deleteCategory,
+  getCategories,
+  deleteProduct,
+} from "./../api/adminAPI";
 import { isAuthenticated } from "../api/authAPI";
 import {
   HomeWrapper,
@@ -101,6 +105,20 @@ const Home = () => {
     }
   };
 
+  const removeProduct = async (id, token, productId) => {
+    try {
+      const response = await deleteProduct(id, token, productId);
+      if (response.err) {
+        toast.error(response.err, { autoClose: 2000 });
+      } else {
+        await initialize();
+        toast.success("Category deleted successfully", { autoClose: 2000 });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <HomeWrapper>
       {updateCategory && (
@@ -149,6 +167,7 @@ const Home = () => {
                   product={product}
                   getProductDetails={getProductDetails}
                   setProductId={setProductId}
+                  removeProduct={removeProduct}
                 />
               ))
             : null}

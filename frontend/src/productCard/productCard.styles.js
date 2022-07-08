@@ -4,8 +4,6 @@ export const ProductCardContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: center;
-  width: 30%;
-  margin: 10px;
   border: 1px solid black;
   cursor: pointer;
 `;
@@ -20,7 +18,7 @@ export const ProductTitle = styled.h1`
 export const ProductImage = styled.img`
   width: 100%;
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const ProductDescription = styled.p`
@@ -34,11 +32,7 @@ export const ProductPrice = styled.p`
   margin: 0;
 `;
 
-export const ProductImageContainer = styled.div`
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-`;
+export const ProductImageContainer = styled.div``;
 
 export const ProductFooter = styled.div`
   display: flex;

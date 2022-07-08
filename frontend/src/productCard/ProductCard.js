@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   ProductCardContainer,
@@ -13,9 +13,13 @@ import {
 import { addItem } from "../cart/cartHelper";
 import { isAuthenticated } from "../api/authAPI";
 import { showUpdateProductForm } from "../redux/slices/formToggleSlice";
-import { deleteProduct } from "../api/adminAPI";
 
-const ProductCard = ({ product, getProductDetails, setProductId }) => {
+const ProductCard = ({
+  product,
+  getProductDetails,
+  setProductId,
+  removeProduct,
+}) => {
   const addToCart = () => {
     addItem(product);
   };
@@ -51,7 +55,7 @@ const ProductCard = ({ product, getProductDetails, setProductId }) => {
           <button onClick={() => updateProductForm(product._id)}>Update</button>
         )}
         {user && user.role === 1 && (
-          <button onClick={() => deleteProduct(user.id, token, product._id)}>
+          <button onClick={() => removeProduct(user.id, token, product._id)}>
             Delete
           </button>
         )}

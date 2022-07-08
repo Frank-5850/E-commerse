@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { showSignin } from "../redux/slices/formToggleSlice";
+import { showSignin, showSignup } from "../redux/slices/formToggleSlice";
 import { isAuthenticated, signout } from "./../api/authAPI";
 import { NavWrapper, NavGroup, NavItem, NavButton } from "./nav.styles";
 import Signin from "../user/signin/Signin";
@@ -35,6 +35,9 @@ const Nav = () => {
 
         {!isAuthenticated() && (
           <NavButton onClick={() => dispatch(showSignin())}>Sign In</NavButton>
+        )}
+        {!isAuthenticated() && (
+          <NavButton onClick={() => dispatch(showSignup())}>Sign Up</NavButton>
         )}
 
         {isAuthenticated() && (
