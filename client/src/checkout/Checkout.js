@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCart } from "../cart/cartHelper";
+import { ClearCart, getCart } from "../cart/cartHelper";
 import {
   CheckoutContainer,
   CheckoutHeader,
@@ -20,12 +20,22 @@ import {
   ConfirmOrderButton,
 } from "./checkout.styles";
 import { NavItem } from "../nav/nav.styles";
+import { addOrderToHistory } from "../api/userAPI";
+import { isAuthenticated } from "../api/authAPI";
+import { v4 as uuid } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
+
+  const { token, user } = isAuthenticated();
+
+  const navigate = useNavigate();
 
   const totalAmounts = async () => {
     try {
@@ -47,7 +57,30 @@ const Checkout = () => {
     const cartItems = getCart();
     totalAmounts();
     setCartItems(cartItems);
-  });
+  }, [total]);
+
+  const submitOrder = async (e) => {
+    e.preventDefault();
+    try {
+      if (cartItems.length < 1) {
+        return;
+      }
+      const data = await addOrderToHistory(
+        { order: cartItems, dateOrdered: new Date(), orderId: uuid() },
+        user.id,
+        token
+      );
+      await toast.success("Order Placed Successfully");
+      if (user.role === 0) {
+        navigate(`/user/dashboard`);
+      } else {
+        navigate(`/admin/dashboard`);
+      }
+      ClearCart();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <CheckoutWrapper>
@@ -139,11 +172,14 @@ const Checkout = () => {
           </TotalCalculatorCard>
         </CheckoutBody>
         <CheckoutFooter>
-          <NavItem cart={true} to="/cart">
+          <NavItem cart={"true"} to="/cart">
             Back to Cart...
           </NavItem>
-          <ConfirmOrderButton>Order!</ConfirmOrderButton>
+          <ConfirmOrderButton onClick={(e) => submitOrder(e)}>
+            Order!
+          </ConfirmOrderButton>
         </CheckoutFooter>
+        <ToastContainer autoClose={2000} />
       </CheckoutContainer>
     </CheckoutWrapper>
   );

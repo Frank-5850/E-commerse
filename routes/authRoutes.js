@@ -1,5 +1,9 @@
 const router = require("express").Router();
-const { findUserById, updateUserPassword } = require("../controllers/user");
+const {
+  findUserById,
+  updateUserPassword,
+  addOrderToHistory,
+} = require("../controllers/user");
 const {
   register,
   login,
@@ -15,6 +19,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
 router.put("/user/updatePassword/:userId", isAuth, updateUserPassword);
+router.post("/user/addOrderToHistory/:userId", isAuth, addOrderToHistory);
 
 // Still need to complete in front-end
 router.delete("/user/delete/:userId", isAuth, deleteUser);

@@ -52,3 +52,16 @@ export const deleteUser = async (id, token) => {
     return error.response.data;
   }
 };
+
+export const addOrderToHistory = async (order, id, token) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8000/api/user/addOrderToHistory/${id}`,
+      order,
+      { headers: { headers, Authorization: `${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

@@ -105,7 +105,7 @@ const Cart = () => {
                   </CartDetailsContainer>
                 </CartItemCard>
               ))}
-            <NavItem cart={true} style={styles} to="/checkout">
+            <NavItem cart={"true"} style={styles} to="/checkout">
               Continue to checkout....
             </NavItem>
           </OrderContainer>

@@ -39,4 +39,15 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+  addOrderToHistory: async (req, res) => {
+    try {
+      const order = req.body;
+      const user = req.user;
+      user.history.push(order);
+      await user.save();
+      res.json({ success: "Order added to history" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };

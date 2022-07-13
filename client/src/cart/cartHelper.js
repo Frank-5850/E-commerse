@@ -65,3 +65,9 @@ export const removeItem = (productId) => {
   }
   return cart;
 };
+
+export const ClearCart = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("cart");
+  }
+};
