@@ -55,12 +55,17 @@ const Cart = () => {
     setCart(getCart());
   };
 
+  const styles = {
+    display: "flex",
+    alignSelf: "flex-end",
+  };
+
   return (
     <CartWrapper>
       {cart.length > 0 ? (
         <CartContainer>
           <CartHeader>
-            <Header>You have {`${cart.length}`} items in your cart...</Header>
+            <Header>You have {`${cart.length}`} item(s) in your cart...</Header>
             <CartTotal>Total: ${getTotalPrice()}</CartTotal>
           </CartHeader>
           <OrderContainer>
@@ -100,7 +105,9 @@ const Cart = () => {
                   </CartDetailsContainer>
                 </CartItemCard>
               ))}
-            <NavItem to="/checkout">Checkout</NavItem>
+            <NavItem cart={true} style={styles} to="/checkout">
+              Continue to checkout....
+            </NavItem>
           </OrderContainer>
         </CartContainer>
       ) : (

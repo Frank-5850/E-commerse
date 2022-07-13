@@ -35,17 +35,16 @@ export const Header = styled.h1`
 
 export const CheckoutBody = styled.div`
   display: flex;
-  flex-flow: column;
-  justify-content: center;
+  flex-flow: row;
+  justify-content: space-between;
   margin: 20px;
-  border: 1px solid black;
 `;
 
 export const CheckoutItemCard = styled.div`
   display: flex;
   flex-flow: row;
+  width: 100%;
   justify-content: space-between;
-  align-items: center;
 `;
 
 export const CheckoutItemDetailsContainer = styled.div`
@@ -77,4 +76,31 @@ export const CheckoutItemPrice = styled.h6`
   font-weight: bold;
   margin: 0;
   padding: 10px;
+`;
+
+export const CheckoutFooter = styled.div`
+  height: 50px;
+  border-left: 1px solid black;
+`;
+
+export const TotalCalculatorCard = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+`;
+
+export const AllCheckoutItems = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  width: 30%;
+`;
+
+export const TotalBox = styled.div`
+  display: flex;
+  flex-flow: column;
 `;

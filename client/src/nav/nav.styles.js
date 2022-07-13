@@ -27,8 +27,8 @@ export const NavItem = styled(Link)`
   color: ${(props) => (props.active ? "white" : "black")};
   cursor: pointer;
   &:hover {
-    background: black;
-    color: white;
+    background: ${(props) => (props.cart ? "white" : "black")};
+    color: ${(props) => (props.cart ? "black" : "white")};
   }
 `;
 

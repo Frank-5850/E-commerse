@@ -12,6 +12,10 @@ import {
   CheckoutItemDescription,
   CheckoutItemPriceContainer,
   CheckoutItemPrice,
+  CheckoutFooter,
+  TotalCalculatorCard,
+  AllCheckoutItems,
+  TotalBox,
 } from "./checkout.styles";
 
 const Checkout = () => {
@@ -30,22 +34,30 @@ const Checkout = () => {
           <Header>Checkout</Header>
         </CheckoutHeader>
         <CheckoutBody>
-          {cartItems.map((item) => (
-            <CheckoutItemCard>
-              <CheckoutItemDetailsContainer>
-                <CheckoutItemName>{item.name}</CheckoutItemName>
-                <CheckoutItemDescription>
-                  {item.description} x {item.count}
-                </CheckoutItemDescription>
-              </CheckoutItemDetailsContainer>
-              <CheckoutItemPriceContainer>
-                <CheckoutItemPrice>
-                  ${item.price * item.count}
-                </CheckoutItemPrice>
-              </CheckoutItemPriceContainer>
-            </CheckoutItemCard>
-          ))}
+          <TotalCalculatorCard>
+            <TotalBox>
+              <Header>Total</Header>
+            </TotalBox>
+          </TotalCalculatorCard>
+          <AllCheckoutItems>
+            {cartItems.map((item) => (
+              <CheckoutItemCard>
+                <CheckoutItemDetailsContainer>
+                  <CheckoutItemName>{item.name}</CheckoutItemName>
+                  <CheckoutItemDescription>
+                    {item.description} x {item.count}
+                  </CheckoutItemDescription>
+                </CheckoutItemDetailsContainer>
+                <CheckoutItemPriceContainer>
+                  <CheckoutItemPrice>
+                    ${item.price * item.count}
+                  </CheckoutItemPrice>
+                </CheckoutItemPriceContainer>
+              </CheckoutItemCard>
+            ))}
+          </AllCheckoutItems>
         </CheckoutBody>
+        <CheckoutFooter>Continue...</CheckoutFooter>
       </CheckoutContainer>
     </CheckoutWrapper>
   );
