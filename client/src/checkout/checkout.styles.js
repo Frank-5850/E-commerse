@@ -16,7 +16,8 @@ export const CheckoutContainer = styled.div`
   width: 60%;
   height: 80%;
   margin: 20px 0;
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 10px;
 `;
 
 export const CheckoutHeader = styled.div`
@@ -24,13 +25,20 @@ export const CheckoutHeader = styled.div`
   flex-flow: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid grey;
 `;
+
 export const Header = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
   padding: 10px;
+`;
+
+export const MiniHeader = styled.h2`
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 5px 0;
 `;
 
 export const CheckoutBody = styled.div`
@@ -40,47 +48,13 @@ export const CheckoutBody = styled.div`
   margin: 20px;
 `;
 
-export const CheckoutItemCard = styled.div`
-  display: flex;
-  flex-flow: row;
-  width: 100%;
-  justify-content: space-between;
-`;
-
-export const CheckoutItemDetailsContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  padding: 10px;
-`;
-
-export const CheckoutItemName = styled.h6`
-  font-weight: bold;
-  margin: 0;
-`;
-
-export const CheckoutItemDescription = styled.p`
-  margin: 0;
-`;
-
-export const CheckoutItemPriceContainer = styled.div`
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
-  border-left: 1px solid black;
-  width: 100px;
-  height: 50px;
-`;
-
-export const CheckoutItemPrice = styled.h6`
-  font-weight: bold;
-  margin: 0;
-  padding: 10px;
-`;
-
 export const CheckoutFooter = styled.div`
-  height: 50px;
-  border-left: 1px solid black;
+  width: 100%;
+  padding: 5px 0px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const TotalCalculatorCard = styled.div`
@@ -88,19 +62,66 @@ export const TotalCalculatorCard = styled.div`
   flex-flow: row;
   justify-content: center;
   align-items: center;
-  width: 70%;
-`;
-
-export const AllCheckoutItems = styled.div`
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
   width: 30%;
 `;
 
 export const TotalBox = styled.div`
   display: flex;
   flex-flow: column;
+  width: 300px;
+`;
+
+export const ItemTotalLine = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const TaxPriceLine = styled(ItemTotalLine)`
+  border-bottom: 1px solid black;
+`;
+
+export const TotalText = styled.p`
+  font-weight: bold;
+  margin: 0;
+`;
+
+export const ShippingInfoCard = styled.div`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 30%;
+  border: 1px solid grey;
+  border-radius: 5px;
+`;
+
+export const BillingInput = styled.input`
+  width: 80%;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px 0;
+`;
+
+export const CheckBoxBox = styled.div`
+  width: 80%;
+  display: flex;
+  flex-flow: row;
+  algin-items: center;
+  margin-bottom: 5px;
+`;
+
+export const BillingInfoCard = styled(ShippingInfoCard)``;
+
+export const ConfirmOrderButton = styled.button`
+  border-radius: 5px;
+  border: 1px solid grey;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin: 0px 8px;
 `;
