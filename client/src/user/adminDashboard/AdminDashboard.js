@@ -18,6 +18,7 @@ import {
   DashboardLinkItems,
   DashboardName,
   DashboardText,
+  DashboardHeader,
 } from "./dashboard.styles";
 import UpdatePassword from "../updatePassword/UpdatePassword";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,34 +46,36 @@ const AdminDashboard = () => {
       {product && <CreateProduct toast={toast} />}
       {changePassword && <UpdatePassword toast={toast} />}
       <DashboardContainer>
-        <DashboardLinks>
-          <DashboardCard>
-            <DashboardLinkGroup>
-              <DashboardLinkItems onClick={() => dispatch(showCategoryForm())}>
-                Create Category
-              </DashboardLinkItems>
-              <DashboardLinkItems onClick={() => dispatch(showProductForm())}>
-                Create Product
-              </DashboardLinkItems>
-              <DashboardLinkItems
-                onClick={() => dispatch(showChangePasswordForm())}
-              >
-                Change Password
-              </DashboardLinkItems>
-              <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
-              <DashboardLinkItems>Admin Dashboard</DashboardLinkItems>
-            </DashboardLinkGroup>
-          </DashboardCard>
-        </DashboardLinks>
-        <DashboardInfo>
-          <DashboardCard>
-            <DashboardName>
-              {user.firstName} {user.lastName}
-            </DashboardName>
-            <DashboardText>{user.email}</DashboardText>
-            <DashboardText>Member since: {memberSince()}</DashboardText>
-          </DashboardCard>
-        </DashboardInfo>
+        <DashboardHeader>
+          <DashboardLinks>
+            <DashboardCard>
+              <DashboardLinkGroup>
+                <DashboardLinkItems
+                  onClick={() => dispatch(showCategoryForm())}
+                >
+                  Create Category
+                </DashboardLinkItems>
+                <DashboardLinkItems onClick={() => dispatch(showProductForm())}>
+                  Create Product
+                </DashboardLinkItems>
+                <DashboardLinkItems
+                  onClick={() => dispatch(showChangePasswordForm())}
+                >
+                  Change Password
+                </DashboardLinkItems>
+              </DashboardLinkGroup>
+            </DashboardCard>
+          </DashboardLinks>
+          <DashboardInfo>
+            <DashboardCard>
+              <DashboardName>
+                {user.firstName} {user.lastName}
+              </DashboardName>
+              <DashboardText>{user.email}</DashboardText>
+              <DashboardText>Member since: {memberSince()}</DashboardText>
+            </DashboardCard>
+          </DashboardInfo>
+        </DashboardHeader>
         <ToastContainer />
       </DashboardContainer>
     </DashboardWrapper>

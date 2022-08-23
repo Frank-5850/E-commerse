@@ -11,7 +11,7 @@ export const DashboardWrapper = styled.div`
 
 export const DashboardContainer = styled.div`
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   justify-content: center;
   width: 60%;
   margin: 20px 0;
@@ -70,4 +70,32 @@ export const DashboardName = styled.h3`
 
 export const DashboardText = styled.p`
   margin: 0 0 10px 0;
+`;
+
+export const DashboardHeader = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+export const DashboardOrderHistory = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid black;
+`;
+
+export const DashBoardOrderHistoryHeader = styled.h2`
+  margin: 10px;
+`;
+
+export const DashboardOrderHistoryCards = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid black;
 `;

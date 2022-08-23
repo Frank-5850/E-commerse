@@ -113,7 +113,7 @@ const ProductCard = ({
               place="top"
               effect="solid"
             >
-              Update product
+              Delete Product
             </ReactTooltip>
           </>
           {product.quantity >= 1 ? (

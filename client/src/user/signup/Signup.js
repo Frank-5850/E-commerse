@@ -62,6 +62,7 @@ const Signup = () => {
           ...values,
           error: false,
         });
+        dispatch(toggleBetweenSigninAndSignup());
       }
     } catch (error) {
       console.log("error", error);

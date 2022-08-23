@@ -68,9 +68,12 @@ export const AddToCart = styled.button`
   flex-flow: row;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
   cursor: pointer;
+  background-color: white;
   &:hover {
-    background-color: #ebebeb;
+    transform: scale(1.01);
+    border: 1px solid grey;
+    border-radius: 10px;
+    border-box: box-sizing;
   }
 `;

@@ -59,11 +59,41 @@ const Signin = () => {
         await setValues({
           ...values,
           error: false,
-          redirectToReferrer: true,
         });
         await dispatch(showSignin());
         navigate("/");
       }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const handleAdminDemoSignin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await signin({
+        email: "admin@admin.com",
+        password: "password1",
+      });
+      authenticate(data);
+      dispatch(setCurrentUser(data));
+      dispatch(showSignin());
+      navigate("/");
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const handleUserDemoSignin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await signin({
+        email: "user@user.com",
+        password: "password1",
+      });
+      authenticate(data);
+      dispatch(setCurrentUser(data));
+      dispatch(showSignin());
+      navigate("/");
     } catch (error) {
       console.log("error", error);
     }
@@ -106,6 +136,12 @@ const Signin = () => {
           />
           <ConfirmButton onClick={(e) => handleSubmit(e)}>
             Sign In
+          </ConfirmButton>
+          <ConfirmButton onClick={(e) => handleAdminDemoSignin(e)}>
+            Sign In as Admin
+          </ConfirmButton>
+          <ConfirmButton onClick={(e) => handleUserDemoSignin(e)}>
+            Sign In as User
           </ConfirmButton>
           {showError()}
           <SignupComponent>

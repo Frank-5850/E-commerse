@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ClearCart, getCart } from "../cart/cartHelper";
+import { clearCart, getCart } from "../cart/cartHelper";
 import {
   CheckoutContainer,
   CheckoutHeader,
@@ -29,35 +29,42 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [cartTotal, setCartTotal] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const { token, user } = isAuthenticated();
 
   const navigate = useNavigate();
 
-  const totalAmounts = async () => {
-    try {
-      let total = 0;
-      cartItems.map((item) => {
-        return (total += item.price * item.count);
-      });
-      setCartTotal(total);
-      let taxTotal = (cartTotal * 9.75) / 100;
-      setTax(taxTotal.toFixed(2));
-      let totalAmount = cartTotal + taxTotal;
-      setTotal(totalAmount.toFixed(2));
-    } catch (error) {
-      console.log(error);
-    }
+  const totalItemCost = () => {
+    let total = 0;
+    cartItems.map((item) => {
+      return (total += item.price * item.count);
+    });
+    return total.toFixed(2);
+  };
+
+  const totalTaxCost = () => {
+    let total = 0;
+    cartItems.map((item) => {
+      return (total += item.price * item.count);
+    });
+    let taxTotal = ((total * 9.75) / 100).toFixed(2);
+    return taxTotal;
+  };
+
+  const totalCost = () => {
+    let total = 0;
+    cartItems.map((item) => {
+      return (total += item.price * item.count);
+    });
+    let taxTotal = ((total * 9.75) / 100).toFixed(2);
+    let totalCost = (total + parseFloat(taxTotal)).toFixed(2);
+    return totalCost;
   };
 
   useEffect(() => {
     const cartItems = getCart();
-    totalAmounts();
     setCartItems(cartItems);
-  }, [total]);
+  }, []);
 
   const submitOrder = async (e) => {
     e.preventDefault();
@@ -65,18 +72,18 @@ const Checkout = () => {
       if (cartItems.length < 1) {
         return;
       }
-      const data = await addOrderToHistory(
+      await addOrderToHistory(
         { order: cartItems, dateOrdered: new Date(), orderId: uuid() },
         user.id,
         token
       );
-      await toast.success("Order Placed Successfully");
+      toast.success("Order Placed Successfully");
       if (user.role === 0) {
         navigate(`/user/dashboard`);
       } else {
         navigate(`/admin/dashboard`);
       }
-      ClearCart();
+      clearCart();
     } catch (error) {
       console.log(error);
     }
@@ -158,15 +165,15 @@ const Checkout = () => {
             <TotalBox>
               <ItemTotalLine>
                 <TotalText>Items({cartItems.length}):</TotalText>
-                <TotalText>${cartTotal}</TotalText>
+                <TotalText>${totalItemCost()}</TotalText>
               </ItemTotalLine>
               <TaxPriceLine>
                 <TotalText>Tax:</TotalText>
-                <TotalText>+ ${tax}</TotalText>
+                <TotalText>+ ${totalTaxCost()}</TotalText>
               </TaxPriceLine>
               <ItemTotalLine>
                 <TotalText>Total:</TotalText>
-                <TotalText>${total}</TotalText>
+                <TotalText>${totalCost()}</TotalText>
               </ItemTotalLine>
             </TotalBox>
           </TotalCalculatorCard>
