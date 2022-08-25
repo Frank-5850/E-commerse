@@ -79,7 +79,7 @@ const ProductCard = ({
           Add to cart
         </AddToCart>
       </ProductFooter>
-      {user && user.role === 1 && (
+      {/* {user && user.role === 1 && (
         <ProductIcons>
           <>
             <UpdateIcon
@@ -154,7 +154,7 @@ const ProductCard = ({
             </>
           )}
         </ProductIcons>
-      )}
+      )} */}
     </ProductCardContainer>
   );
 };
