@@ -141,53 +141,52 @@ const Home = () => {
             >
               All Products
             </CategoryLinksItems>
-            {categories
-              ? categories?.map((category) => (
-                  <CategoryLinkContainer key={category._id}>
-                    <CategoryLinksItems
-                      onClick={() => sortProductsByCategory(category.name)}
-                    >
-                      {category.name}
-                    </CategoryLinksItems>
-                    <CategoryIcons>
-                      {user && user.role === 1 && (
-                        <>
-                          <DeleteIcon
-                            data-tip
-                            data-for="deleteCategoryTip"
-                            data-offset="{'bottom': 6}"
-                            size="20px"
-                            onClick={() =>
-                              removeCategory(user.id, token, category._id)
-                            }
-                          />
-                          <ReactTooltip
-                            id="deleteCategoryTip"
-                            place="top"
-                            effect="solid"
-                          >
-                            Delete category
-                          </ReactTooltip>
-                          <UpdateIcon
-                            data-tip
-                            data-for="updateCategoryTip"
-                            data-offset="{'bottom': 6}"
-                            size="20px"
-                            onClick={() => updateCategoryForm(category._id)}
-                          />
-                          <ReactTooltip
-                            id="updateCategoryTip"
-                            place="top"
-                            effect="solid"
-                          >
-                            Update category
-                          </ReactTooltip>
-                        </>
-                      )}
-                    </CategoryIcons>
-                  </CategoryLinkContainer>
-                ))
-              : null}
+            {categories &&
+              categories.map((category) => (
+                <CategoryLinkContainer key={category._id}>
+                  <CategoryLinksItems
+                    onClick={() => sortProductsByCategory(category.name)}
+                  >
+                    {category.name}
+                  </CategoryLinksItems>
+                  <CategoryIcons>
+                    {user && user.role === 1 && (
+                      <>
+                        <DeleteIcon
+                          data-tip
+                          data-for="deleteCategoryTip"
+                          data-offset="{'bottom': 6}"
+                          size="20px"
+                          onClick={() =>
+                            removeCategory(user.id, token, category._id)
+                          }
+                        />
+                        <ReactTooltip
+                          id="deleteCategoryTip"
+                          place="top"
+                          effect="solid"
+                        >
+                          Delete category
+                        </ReactTooltip>
+                        <UpdateIcon
+                          data-tip
+                          data-for="updateCategoryTip"
+                          data-offset="{'bottom': 6}"
+                          size="20px"
+                          onClick={() => updateCategoryForm(category._id)}
+                        />
+                        <ReactTooltip
+                          id="updateCategoryTip"
+                          place="top"
+                          effect="solid"
+                        >
+                          Update category
+                        </ReactTooltip>
+                      </>
+                    )}
+                  </CategoryIcons>
+                </CategoryLinkContainer>
+              ))}
           </CategoryLinksCard>
         </CategoryLinks>
         <ProductWrapper>
@@ -195,17 +194,16 @@ const Home = () => {
             {categoryName ? categoryName : "All Products"}
           </ProductCategoryTitle>
           <ProductContainer>
-            {products
-              ? products.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    getProductDetails={getProductDetails}
-                    setProductId={setProductId}
-                    removeProduct={removeProduct}
-                  />
-                ))
-              : null}
+            {products &&
+              products.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  getProductDetails={getProductDetails}
+                  setProductId={setProductId}
+                  removeProduct={removeProduct}
+                />
+              ))}
           </ProductContainer>
         </ProductWrapper>
         <ToastContainer autoClose={2000} />
