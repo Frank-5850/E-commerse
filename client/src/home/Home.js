@@ -149,7 +149,7 @@ const Home = () => {
                     >
                       {category.name}
                     </CategoryLinksItems>
-                    {/* <CategoryIcons>
+                    <CategoryIcons>
                       {user && user.role === 1 && (
                         <>
                           <DeleteIcon
@@ -184,7 +184,7 @@ const Home = () => {
                           </ReactTooltip>
                         </>
                       )}
-                    </CategoryIcons> */}
+                    </CategoryIcons>
                   </CategoryLinkContainer>
                 ))
               : null}
