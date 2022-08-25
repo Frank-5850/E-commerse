@@ -6,11 +6,9 @@ const headers = {
 
 export const signup = async (user) => {
   try {
-    const response = await axios.post(
-      "http://localhost:8000/api/register",
-      user,
-      { headers: { headers } }
-    );
+    const response = await axios.post("/api/register", user, {
+      headers: { headers },
+    });
     return response.data;
   } catch (error) {
     return error.response.data;
@@ -19,7 +17,7 @@ export const signup = async (user) => {
 
 export const signin = async (user) => {
   try {
-    const response = await axios.post("http://localhost:8000/api/login", user, {
+    const response = await axios.post("/api/login", user, {
       headers: { headers },
     });
     return response.data;
@@ -43,7 +41,7 @@ export const signout = async (next) => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("jwt");
     }
-    const response = await axios.get("http://localhost:8000/api/logout");
+    const response = await axios.get("/api/logout");
     next();
     return response.data;
   } catch (error) {
