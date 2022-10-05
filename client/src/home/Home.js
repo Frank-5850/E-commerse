@@ -61,7 +61,7 @@ const Home = () => {
         categories: categoryData,
       });
     } catch (error) {
-      console.log("error", error);
+      console.log("initialization error", error);
     }
   };
 
