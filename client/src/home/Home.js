@@ -58,9 +58,9 @@ const Home = () => {
       const productData = await getProducts();
       const categoryData = await getCategories();
       // setData({ products: [productData], categories: [categoryData] });
-      setProducts(productData);
-      setCategories(categoryData);
-      // console.log(products, categories);
+      await setProducts(productData);
+      await setCategories(categoryData);
+      console.log(products, categories);
       // console.log("success", {
       //   products: productData,
       //   categories: categoryData,
@@ -204,17 +204,16 @@ const Home = () => {
             {categoryName ? categoryName : "All Products"}
           </ProductCategoryTitle>
           <ProductContainer>
-            {products
-              ? products.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    getProductDetails={getProductDetails}
-                    setProductId={setProductId}
-                    removeProduct={removeProduct}
-                  />
-                ))
-              : null}
+            {products &&
+              products?.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  getProductDetails={getProductDetails}
+                  setProductId={setProductId}
+                  removeProduct={removeProduct}
+                />
+              ))}
           </ProductContainer>
         </ProductWrapper>
         <ToastContainer autoClose={2000} />
