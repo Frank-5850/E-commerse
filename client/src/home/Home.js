@@ -55,9 +55,13 @@ const Home = () => {
     try {
       const productData = await getProducts();
       const categoryData = await getCategories();
-      setData({ products: productData, categories: categoryData });
+      await setData({ products: productData, categories: categoryData });
+      console.log("success", {
+        products: productData,
+        categories: categoryData,
+      });
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
   };
 
