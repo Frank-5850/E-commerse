@@ -55,7 +55,7 @@ const Home = () => {
     try {
       const productData = await getProducts();
       const categoryData = await getCategories();
-      await setData({ products: productData, categories: categoryData });
+      setData({ products: productData, categories: categoryData });
       console.log("success", {
         products: productData,
         categories: categoryData,
