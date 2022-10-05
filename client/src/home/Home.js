@@ -31,10 +31,12 @@ import UpdateProduct from "../user/updateProduct/UpdateProduct";
 import ReactTooltip from "react-tooltip";
 
 const Home = () => {
-  const [data, setData] = useState({
-    products: [],
-    categories: [],
-  });
+  // const [data, setData] = useState({
+  //   products: [],
+  //   categories: [],
+  // });
+  const [products, setProducts] = useState();
+  const [categories, setCategories] = useState();
   const [productDetails, setProductDetails] = useState({
     show: false,
     product: {},
@@ -55,8 +57,10 @@ const Home = () => {
     try {
       const productData = await getProducts();
       const categoryData = await getCategories();
-      // setData({ products: productData, categories: categoryData });
-      console.log(productData, categoryData);
+      // setData({ products: [productData], categories: [categoryData] });
+      setProducts(productData);
+      setCategories(categoryData);
+      // console.log(products, categories);
       // console.log("success", {
       //   products: productData,
       //   categories: categoryData,
@@ -80,7 +84,7 @@ const Home = () => {
     }
   };
 
-  const { products, categories } = data;
+  // const { products, categories } = data;
   const { product } = productDetails;
 
   const sortProductsByCategory = async (category) => {
@@ -91,7 +95,8 @@ const Home = () => {
         category !== "All Products"
           ? productArray.filter((product) => product.category.name === category)
           : productArray;
-      setData({ ...data, products: sortedProducts });
+      // setData({ ...data, products: sortedProducts });
+      setProducts(sortedProducts);
       setCategoryName(category);
     } catch (error) {
       console.log(error);
