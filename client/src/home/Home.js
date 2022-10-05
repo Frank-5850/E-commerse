@@ -65,9 +65,6 @@ const Home = () => {
     }
   };
 
-  const { products, categories } = data;
-  const { product } = productDetails;
-
   useEffect(() => {
     initialize();
   }, [signin, updateCategory, updateProduct]);
@@ -81,6 +78,9 @@ const Home = () => {
       return error.response.data;
     }
   };
+
+  const { products, categories } = data;
+  const { product } = productDetails;
 
   const sortProductsByCategory = async (category) => {
     try {
