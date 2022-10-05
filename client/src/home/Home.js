@@ -146,7 +146,7 @@ const Home = () => {
               All Products
             </CategoryLinksItems>
             {categories
-              ? categories.map((category) => (
+              ? categories?.map((category) => (
                   <CategoryLinkContainer key={category._id}>
                     <CategoryLinksItems
                       onClick={() => sortProductsByCategory(category.name)}

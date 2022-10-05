@@ -1,4 +1,4 @@
-const Category = require("../models/catergory");
+const Category = require("../models/category");
 const Product = require("../models/product");
 
 module.exports = {
