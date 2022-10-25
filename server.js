@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8000;
 const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
@@ -35,17 +35,16 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./client/build")));
 }
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-app.use("/api", authRoutes);
-app.use("/api", categoryRoutes);
-app.use("/api", productRoutes);
-
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.use("/api", authRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at: http://localhost:${PORT}`);
