@@ -151,7 +151,8 @@ const Home = () => {
             >
               All Products
             </CategoryLinksItems>
-            {categories &&
+            Categories
+            {/* {categories &&
               categories?.map((category) => (
                 <CategoryLinkContainer key={category._id}>
                   <CategoryLinksItems
@@ -196,7 +197,7 @@ const Home = () => {
                     )}
                   </CategoryIcons>
                 </CategoryLinkContainer>
-              ))}
+              ))} */}
           </CategoryLinksCard>
         </CategoryLinks>
         <ProductWrapper>
