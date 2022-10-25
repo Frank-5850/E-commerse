@@ -6,7 +6,7 @@ const headers = {
 export const getProducts = async () => {
   try {
     const response = await axios.get(`http://localhost:8000/api/products`);
-    return response?.data;
+    return response.data;
   } catch (error) {
     return error.response.data;
   }
