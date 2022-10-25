@@ -40,11 +40,17 @@ const ProductCard = ({
     setProductId(id);
   };
 
+  const photoUrl = () => {
+    if (process.env.NODE_ENV === "production") {
+      return "https://e-commerce5850.herokuapp.com/";
+    } else return `http://localhost:8000/`;
+  };
+
   return (
     <ProductCardContainer>
       <ProductImageContainer onClick={() => getProductDetails(product._id)}>
         <ProductImage
-          src={`http://localhost:8000/${product.photo.filePath}`}
+          src={`${photoUrl()}${product.photo.filePath}`}
           alt={product.name}
         />
       </ProductImageContainer>
