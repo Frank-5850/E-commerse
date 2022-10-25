@@ -61,10 +61,6 @@ const Home = () => {
       await setProducts(productData);
       await setCategories(categoryData);
       console.log(productData, categoryData);
-      // console.log("success", {
-      //   products: productData,
-      //   categories: categoryData,
-      // });
     } catch (error) {
       console.log("initialization error", error);
     }
