@@ -12,9 +12,6 @@ const {
   deleteUser,
 } = require("../controllers/auth");
 
-// router.get("/test", (req, res) => {
-//   res.send("Hello");
-// });
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);

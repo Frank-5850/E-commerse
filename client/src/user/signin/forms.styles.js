@@ -21,7 +21,6 @@ export const FormContainer = styled.div`
   position: absolute;
   border-radius: 15px;
   padding: 20px;
-  // max-width: 400px;
 `;
 
 export const Header = styled.div`

@@ -111,10 +111,6 @@ export const InStockIcon = styled(BsCheckLg)`
   margin: 0px 5px;
   padding: 2px;
   font-size: 1.3rem;
-  // &:hover {
-  //   border: 1px solid grey;
-  //   border-radius: 5px;
-  // }
 `;
 
 export const CancelIcon = styled(BsXCircle)`

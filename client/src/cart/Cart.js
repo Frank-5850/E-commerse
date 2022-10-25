@@ -60,6 +60,12 @@ const Cart = () => {
     alignSelf: "flex-end",
   };
 
+  const photoUrl = () => {
+    if (process.env.NODE_ENV === "production") {
+      return "https://e-commerce5850.herokuapp.com/";
+    } else return `http://localhost:8000/`;
+  };
+
   return (
     <CartWrapper>
       {cart.length > 0 ? (
@@ -73,7 +79,7 @@ const Cart = () => {
               cart.map((product, index) => (
                 <CartItemCard key={index}>
                   <CartItemImg
-                    src={`http://localhost:8000/${product.photo?.filePath}`}
+                    src={`${photoUrl()}${product.photo?.filePath}`}
                     alt={product.name}
                   />
                   <CartDetailsContainer>

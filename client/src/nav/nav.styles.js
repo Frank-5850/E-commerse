@@ -14,7 +14,6 @@ export const NavGroup = styled.ul`
   align-items: center;
   padding: 0.5rem;
   margin: 0;
-  // min-width: 960px;
 `;
 
 export const NavItem = styled(Link)`

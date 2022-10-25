@@ -21,8 +21,6 @@ export const ProductDetailContainer = styled.div`
   position: absolute;
   border-radius: 15px;
   padding: 20px;
-  // min-width: 50%;
-  // min-height: 50%;
   max-height: 500px;
   max-width: 960px;
   display: flex;
