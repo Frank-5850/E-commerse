@@ -210,6 +210,7 @@ const Home = () => {
                   removeProduct={removeProduct}
                 />
               ))} */}
+            product
           </ProductContainer>
         </ProductWrapper>
         <ToastContainer autoClose={2000} />
