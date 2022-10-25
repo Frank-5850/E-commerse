@@ -151,7 +151,7 @@ const Home = () => {
             >
               All Products
             </CategoryLinksItems>
-            {categories &&
+            {/* {categories &&
               categories?.map((category) => (
                 <CategoryLinkContainer key={category._id}>
                   <CategoryLinksItems
@@ -196,7 +196,7 @@ const Home = () => {
                     )}
                   </CategoryIcons>
                 </CategoryLinkContainer>
-              ))}
+              ))} */}
           </CategoryLinksCard>
         </CategoryLinks>
         <ProductWrapper>
@@ -204,7 +204,7 @@ const Home = () => {
             {categoryName ? categoryName : "All Products"}
           </ProductCategoryTitle>
           <ProductContainer>
-            {products &&
+            {/* {products &&
               products?.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -213,7 +213,7 @@ const Home = () => {
                   setProductId={setProductId}
                   removeProduct={removeProduct}
                 />
-              ))}
+              ))} */}
           </ProductContainer>
         </ProductWrapper>
         <ToastContainer autoClose={2000} />
