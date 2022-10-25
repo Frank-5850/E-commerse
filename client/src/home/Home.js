@@ -60,7 +60,7 @@ const Home = () => {
       // setData({ products: [productData], categories: [categoryData] });
       await setProducts(productData);
       await setCategories(categoryData);
-      console.log(products, categories);
+      console.log(productData, categoryData);
       // console.log("success", {
       //   products: productData,
       //   categories: categoryData,
