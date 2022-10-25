@@ -61,60 +61,59 @@ const Cart = () => {
   };
 
   return (
-    <div>Cart</div>
-    // <CartWrapper>
-    //   {cart.length > 0 ? (
-    //     <CartContainer>
-    //       <CartHeader>
-    //         <Header>You have {`${cart.length}`} item(s) in your cart...</Header>
-    //         <CartTotal>Total: ${getTotalPrice()}</CartTotal>
-    //       </CartHeader>
-    //       <OrderContainer>
-    //         {cart &&
-    //           cart.map((product, index) => (
-    //             <CartItemCard key={index}>
-    //               <CartItemImg
-    //                 src={`http://localhost:8000/${product.photo?.filePath}`}
-    //                 alt={product.name}
-    //               />
-    //               <CartDetailsContainer>
-    //                 <CartItemDetails>
-    //                   <CartItemName>{product.name}</CartItemName>
-    //                   <CartItemDescription>
-    //                     {product.description}
-    //                   </CartItemDescription>
-    //                   <CartItemPrice>${product.price}</CartItemPrice>
-    //                   <CartUpdateOptions>
-    //                     Qty:{"  "}
-    //                     <CartItemQuantity
-    //                       type="number"
-    //                       value={product.count}
-    //                       onChange={onChange(product._id)}
-    //                     />
-    //                     <RemoveButton
-    //                       onClick={() => removeItemFromCart(product._id)}
-    //                     >
-    //                       Remove
-    //                     </RemoveButton>
-    //                   </CartUpdateOptions>
-    //                 </CartItemDetails>
-    //                 <CartTotalContainer>
-    //                   <CartItemPrice>
-    //                     ${getTotalPriceForItem(product.price, product.count)}
-    //                   </CartItemPrice>
-    //                 </CartTotalContainer>
-    //               </CartDetailsContainer>
-    //             </CartItemCard>
-    //           ))}
-    //         <NavItem cart={"true"} style={styles} to="/checkout">
-    //           Continue to checkout....
-    //         </NavItem>
-    //       </OrderContainer>
-    //     </CartContainer>
-    //   ) : (
-    //     <h2>Your cart is empty</h2>
-    //   )}
-    // </CartWrapper>
+    <CartWrapper>
+      {cart.length > 0 ? (
+        <CartContainer>
+          <CartHeader>
+            <Header>You have {`${cart.length}`} item(s) in your cart...</Header>
+            <CartTotal>Total: ${getTotalPrice()}</CartTotal>
+          </CartHeader>
+          <OrderContainer>
+            {cart &&
+              cart.map((product, index) => (
+                <CartItemCard key={index}>
+                  <CartItemImg
+                    src={`http://localhost:8000/${product.photo?.filePath}`}
+                    alt={product.name}
+                  />
+                  <CartDetailsContainer>
+                    <CartItemDetails>
+                      <CartItemName>{product.name}</CartItemName>
+                      <CartItemDescription>
+                        {product.description}
+                      </CartItemDescription>
+                      <CartItemPrice>${product.price}</CartItemPrice>
+                      <CartUpdateOptions>
+                        Qty:{"  "}
+                        <CartItemQuantity
+                          type="number"
+                          value={product.count}
+                          onChange={onChange(product._id)}
+                        />
+                        <RemoveButton
+                          onClick={() => removeItemFromCart(product._id)}
+                        >
+                          Remove
+                        </RemoveButton>
+                      </CartUpdateOptions>
+                    </CartItemDetails>
+                    <CartTotalContainer>
+                      <CartItemPrice>
+                        ${getTotalPriceForItem(product.price, product.count)}
+                      </CartItemPrice>
+                    </CartTotalContainer>
+                  </CartDetailsContainer>
+                </CartItemCard>
+              ))}
+            <NavItem cart={"true"} style={styles} to="/checkout">
+              Continue to checkout....
+            </NavItem>
+          </OrderContainer>
+        </CartContainer>
+      ) : (
+        <h2>Your cart is empty</h2>
+      )}
+    </CartWrapper>
   );
 };
 

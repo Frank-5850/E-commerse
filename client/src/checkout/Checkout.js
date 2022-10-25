@@ -90,106 +90,105 @@ const Checkout = () => {
   };
 
   return (
-    <div>Checkout</div>
-    // <CheckoutWrapper>
-    //   <CheckoutContainer>
-    //     <CheckoutHeader>
-    //       <Header>Checkout</Header>
-    //     </CheckoutHeader>
-    //     <CheckoutBody>
-    //       <ShippingInfoCard>
-    //         <MiniHeader>Shipping</MiniHeader>
-    //         <BillingInput
-    //           placeholder="First Name"
-    //           type="firstName"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Last Name"
-    //           type="lastName"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Address"
-    //           type="address"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="City/State"
-    //           type="city/state"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Zip Code"
-    //           type="zip"
-    //           className="form-control"
-    //         />
-    //         <CheckBoxBox>
-    //           <input
-    //             style={{ alignSelf: "start" }}
-    //             placeholder="Phone Number"
-    //             type="checkbox"
-    //             className="form-control"
-    //           />
-    //           <label>Use address for billing</label>
-    //         </CheckBoxBox>
-    //       </ShippingInfoCard>
-    //       <BillingInfoCard>
-    //         <MiniHeader>Billing</MiniHeader>
-    //         <BillingInput
-    //           placeholder="Full name on card"
-    //           type="text"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Card Number"
-    //           type="number"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="CVC"
-    //           type="number"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Expiration Date"
-    //           type="date"
-    //           className="form-control"
-    //         />
-    //         <BillingInput
-    //           placeholder="Zip Code"
-    //           type="number"
-    //           className="form-control"
-    //         />
-    //       </BillingInfoCard>
-    //       <TotalCalculatorCard>
-    //         <TotalBox>
-    //           <ItemTotalLine>
-    //             <TotalText>Items({cartItems.length}):</TotalText>
-    //             <TotalText>${totalItemCost()}</TotalText>
-    //           </ItemTotalLine>
-    //           <TaxPriceLine>
-    //             <TotalText>Tax:</TotalText>
-    //             <TotalText>+ ${totalTaxCost()}</TotalText>
-    //           </TaxPriceLine>
-    //           <ItemTotalLine>
-    //             <TotalText>Total:</TotalText>
-    //             <TotalText>${totalCost()}</TotalText>
-    //           </ItemTotalLine>
-    //         </TotalBox>
-    //       </TotalCalculatorCard>
-    //     </CheckoutBody>
-    //     <CheckoutFooter>
-    //       <NavItem cart={"true"} to="/cart">
-    //         Back to Cart...
-    //       </NavItem>
-    //       <ConfirmOrderButton onClick={(e) => submitOrder(e)}>
-    //         Order!
-    //       </ConfirmOrderButton>
-    //     </CheckoutFooter>
-    //     <ToastContainer autoClose={2000} />
-    //   </CheckoutContainer>
-    // </CheckoutWrapper>
+    <CheckoutWrapper>
+      <CheckoutContainer>
+        <CheckoutHeader>
+          <Header>Checkout</Header>
+        </CheckoutHeader>
+        <CheckoutBody>
+          <ShippingInfoCard>
+            <MiniHeader>Shipping</MiniHeader>
+            <BillingInput
+              placeholder="First Name"
+              type="firstName"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Last Name"
+              type="lastName"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Address"
+              type="address"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="City/State"
+              type="city/state"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Zip Code"
+              type="zip"
+              className="form-control"
+            />
+            <CheckBoxBox>
+              <input
+                style={{ alignSelf: "start" }}
+                placeholder="Phone Number"
+                type="checkbox"
+                className="form-control"
+              />
+              <label>Use address for billing</label>
+            </CheckBoxBox>
+          </ShippingInfoCard>
+          <BillingInfoCard>
+            <MiniHeader>Billing</MiniHeader>
+            <BillingInput
+              placeholder="Full name on card"
+              type="text"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Card Number"
+              type="number"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="CVC"
+              type="number"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Expiration Date"
+              type="date"
+              className="form-control"
+            />
+            <BillingInput
+              placeholder="Zip Code"
+              type="number"
+              className="form-control"
+            />
+          </BillingInfoCard>
+          <TotalCalculatorCard>
+            <TotalBox>
+              <ItemTotalLine>
+                <TotalText>Items({cartItems.length}):</TotalText>
+                <TotalText>${totalItemCost()}</TotalText>
+              </ItemTotalLine>
+              <TaxPriceLine>
+                <TotalText>Tax:</TotalText>
+                <TotalText>+ ${totalTaxCost()}</TotalText>
+              </TaxPriceLine>
+              <ItemTotalLine>
+                <TotalText>Total:</TotalText>
+                <TotalText>${totalCost()}</TotalText>
+              </ItemTotalLine>
+            </TotalBox>
+          </TotalCalculatorCard>
+        </CheckoutBody>
+        <CheckoutFooter>
+          <NavItem cart={"true"} to="/cart">
+            Back to Cart...
+          </NavItem>
+          <ConfirmOrderButton onClick={(e) => submitOrder(e)}>
+            Order!
+          </ConfirmOrderButton>
+        </CheckoutFooter>
+        <ToastContainer autoClose={2000} />
+      </CheckoutContainer>
+    </CheckoutWrapper>
   );
 };
 
