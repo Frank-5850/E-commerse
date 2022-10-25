@@ -20,7 +20,7 @@ app.use(cors());
 
 // mongoose setup
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/ecommerse",
+  process.env.MONGODB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
