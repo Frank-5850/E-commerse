@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-require("dotenv").config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config();
 
 // imported routes
 const authRoutes = require("./routes/authRoutes");
@@ -18,20 +18,6 @@ app.use(express.json());
 //
 app.use(cors());
 
-// const connectDB = async () => {
-//   try {
-//     const conn = await mongoose.connect(process.env.MONGODB_URI, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     });
-
-//     console.log(`MongoDB Connected: ${conn.connection.host}`);
-//   } catch (error) {
-//     console.error(`Error:${error.message}`);
-//     process.exit();
-//   }
-// };
-// connectDB();
 // mongoose setup
 mongoose.connect(
   process.env.MONGODB_URI,
@@ -45,29 +31,14 @@ mongoose.connect(
   }
 );
 
-// __dirname = path.resolve();
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "./client/build")));
-
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-//   });
-// } else {
-//   app.get("/", (req, res) => {
-//     res.send("NODE ENV NOT IN PRODUCTION");
-//   });
-// }
-app.use(express.static(path.resolve(__dirname, "./client/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
-
-// if (process.env.NODE_ENV === "production") {
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//   });
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "./client/build")));
+}
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
