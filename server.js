@@ -41,7 +41,7 @@ mongoose.connect(
   },
   (err) => {
     if (err) throw err;
-    console.log(`MongoDB connection established: ${conn.connection.host}`);
+    console.log(`MongoDB connection established`);
   }
 );
 
